@@ -1,0 +1,3 @@
+*.apk
+docs/img/*.orig
+.DS_Store
