@@ -10,9 +10,12 @@ Per-app device identities that never repeat — so your accounts never get linke
 
 ![Android 7–15](https://img.shields.io/badge/Android-7–15-3ddc84) &nbsp;![Root](https://img.shields.io/badge/root-Magisk%20%2B%20LSPosed-ffd54a) &nbsp;![Region](https://img.shields.io/badge/profiles-USA-e5736e)
 
-<img src="docs/img/identity.png" width="290" alt="Specter — one tap applies an identity"/>
-&nbsp;
-<img src="docs/img/status.png" width="290" alt="Protection status — all green"/>
+<img src="docs/img/identity.png" width="230" alt="Specter — one tap applies an identity"/>
+<img src="docs/img/status.png" width="230" alt="Protection status — all green"/>
+<img src="docs/img/appdata.png" width="230" alt="Save & restore a logged-in session per app"/>
+<img src="docs/img/network.png" width="230" alt="Built-in exit-IP + reputation check"/>
+
+<sub>Apply an identity · verify every layer is live · save/restore logins per app · check your exit IP</sub>
 
 </div>
 
