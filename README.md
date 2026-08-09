@@ -2,12 +2,16 @@
 
 # 👻 Specter
 
-**A fresh phone for every account.**
+### A fresh phone for every account
+
 Per-app device identities that never repeat — so your accounts never get linked.
 
-[**⬇️ Download APK**](../../releases/latest) · [Setup](#setup) · [Get a key](#access)
+[**⬇️ Download APK**](../../releases/latest) · [How it works](#how-it-works) · [Setup](#setup) · [Get a key](#access)
+
+![Android 7–15](https://img.shields.io/badge/Android-7–15-3ddc84) &nbsp;![Root](https://img.shields.io/badge/root-Magisk%20%2B%20LSPosed-ffd54a) &nbsp;![Region](https://img.shields.io/badge/profiles-USA-e5736e)
 
 <img src="docs/img/identity.png" width="290" alt="Specter — one tap applies an identity"/>
+&nbsp;
 <img src="docs/img/status.png" width="290" alt="Protection status — all green"/>
 
 </div>
@@ -25,7 +29,13 @@ Per-app device identities that never repeat — so your accounts never get linke
 - ✅ **Proof it worked** — a built-in check reads back what each app actually sees.
 - ⚡ **One-tap setup** — installs everything and gets you running.
 - 🕵️ **Yours alone** — works offline, no account, no phone-home.
-- 🇺🇸 **Realistic US profiles** — real device models paired with US carriers.
+- 🦅 **Realistic US profiles** — real device models paired with US carriers.
+
+## How it works
+
+**1.** Open a target app on a fresh, unique device identity. → **2.** Save the login. → **3.** Switch identity for the next account — the previous session is safely vaulted and restorable.
+
+Every account signup sees a different phone. Nothing carries over to link them.
 
 ## Setup
 
