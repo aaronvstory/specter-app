@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Specter - the phantom device layer for Android</title>
+<meta name="description" content="Give every account signup a fresh, coherent, never‑reused Android device identity. A generated profile sets model, build, IDs, radio, kernel and RAM consistently - then a probe reads it back to prove it. The one guarantee the paid tools broke: no identifier is ever reused." />
+<meta property="og:title" content="Specter - the phantom device layer for Android" />
+<meta property="og:description" content="Per‑account device identity rotation. Coherent by construction, verified on‑device, never reused." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://aaronvstory.github.io/specter-app/" />
+<meta property="og:image" content="https://aaronvstory.github.io/specter-app/assets/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Specter - every account gets a device that never existed. Coherent, verified on‑device, never reused." />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Specter - the phantom device layer for Android" />
+<meta name="twitter:description" content="Per‑account device identity rotation. Coherent by construction, verified on‑device, never reused." />
+<meta name="twitter:image" content="https://aaronvstory.github.io/specter-app/assets/og.png" />
+<meta name="twitter:image:alt" content="Specter - per-account device identity. Coherent, verified on‑device, never reused." />
+<meta name="theme-color" content="#08080a" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%23111114'/%3E%3Cpath%20d='M8%2026V14a8%208%200%200%201%2016%200v12l-2.6-1.9L18.7%2026%2016%2024%2013.3%2026l-2.7-1.9L8%2026Z'%20fill='%23f5c542'/%3E%3Ccircle%20cx='13'%20cy='15'%20r='1.6'%20fill='%23161200'/%3E%3Ccircle%20cx='19'%20cy='15'%20r='1.6'%20fill='%23161200'/%3E%3C/svg%3E" />
+<link rel="apple-touch-icon" sizes="180x180" href="https://aaronvstory.github.io/specter-app/assets/apple-touch-icon.png" />
+<link rel="canonical" href="https://aaronvstory.github.io/specter-app/" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Specter",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Android (rooted; Magisk/Zygisk + LSPosed)",
+  "description": "Per-account Android device-identity rotation: a fresh, coherent, never-reused device profile per signup, applied on-device and read back by a probe to prove it.",
+  "url": "https://aaronvstory.github.io/specter-app/",
+  "image": "https://aaronvstory.github.io/specter-app/assets/og.png",
+  "screenshot": "https://aaronvstory.github.io/specter-app/assets/screen-identity.png",
+  "offers": {
+    "@type": "Offer",
+    "price": "20",
+    "priceCurrency": "USD",
+    "description": "Per device, per month. Free 1-week trial."
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#08080a; --bg2:#0e0e12; --card:#141419; --card2:#1a1a20;
+    --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.14);
+    --gold:#f5c542; --gold-2:#ffd968; --gold-dim:#c99a1e;
+    --ink:#f5f5f6; --soft:#b3b3bd; --dim:#8a8a95;
+    --sage:#79c96b; --red:#f0645f; --blue:#6fb6e6;
+    --maxw:1180px;
+    --ease:cubic-bezier(.22,1,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;overflow-x:clip}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:'Hanken Grotesk',system-ui,sans-serif;
+    font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased;
+    overflow-x:clip; max-width:100%;
+  }
+  ::selection{background:var(--gold);color:#111}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+    .reveal,.stagger>*{opacity:1!important;transform:none!important}
+    .float{animation:none!important}
+  }
+  .mono{font-family:'JetBrains Mono',monospace}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+  /* ---- atmosphere: grain + gold aurora ---- */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(60% 40% at 72% -5%, rgba(245,197,66,.16), transparent 60%),
+      radial-gradient(45% 35% at 8% 8%, rgba(245,197,66,.07), transparent 60%),
+      radial-gradient(80% 60% at 50% 120%, rgba(120,90,20,.10), transparent 60%);
+  }
+  body::after{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  main,nav,footer{position:relative;z-index:1}
+
+  /* ---- nav ---- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:blur(14px);
+    background:linear-gradient(to bottom, rgba(8,8,10,.86), rgba(8,8,10,.55));
+    border-bottom:1px solid var(--line);
+  }
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .brand{display:flex;align-items:center;gap:11px;font-family:'Bricolage Grotesque';font-weight:800;font-size:21px;letter-spacing:-.02em}
+  .ghost{width:30px;height:30px;filter:drop-shadow(0 0 10px rgba(245,197,66,.55))}
+  .nav-links{display:flex;gap:30px;align-items:center;font-size:15px;color:var(--soft)}
+  .nav-links a{transition:color .2s}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-cta{
+    font-family:'JetBrains Mono';font-size:13px;font-weight:500;
+    padding:9px 16px;border:1px solid var(--line2);border-radius:8px;color:var(--ink);
+    display:flex;align-items:center;gap:8px;transition:.2s var(--ease);
+  }
+  .nav-cta:hover{border-color:var(--gold);background:rgba(245,197,66,.08);transform:translateY(-1px)}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;width:42px;height:42px;align-items:center;justify-content:center;background:none;border:1px solid var(--line2);border-radius:9px;cursor:pointer;transition:.2s var(--ease)}
+  .nav-toggle:hover{border-color:var(--gold)}
+  .nav-toggle span{display:block;width:18px;height:2px;background:var(--ink);border-radius:2px;transition:transform .25s var(--ease),opacity .2s}
+  .nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+  .nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .mobile-menu{display:none;flex-direction:column;border-top:1px solid var(--line);background:rgba(8,8,10,.97);backdrop-filter:blur(14px)}
+  .mobile-menu a{padding:15px 24px;color:var(--soft);font-size:16px;border-bottom:1px solid var(--line);transition:color .2s,background .2s}
+  .mobile-menu a:hover,.mobile-menu a:focus-visible{color:var(--gold);background:rgba(245,197,66,.05)}
+  @media(max-width:760px){
+    .nav-links{display:none}
+    .nav-toggle{display:flex}
+    .mobile-menu{display:flex}
+    .mobile-menu[hidden]{display:none}
+  }
+
+  /* ---- hero ---- */
+  .hero{padding:96px 0 40px;position:relative}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:36px}}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:9px;
+    font-family:'JetBrains Mono';font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--gold);border:1px solid rgba(245,197,66,.28);border-radius:100px;
+    padding:6px 14px;background:rgba(245,197,66,.06);
+  }
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--sage);box-shadow:0 0 8px var(--sage);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  h1{
+    font-family:'Bricolage Grotesque';font-weight:800;letter-spacing:-.035em;line-height:1.04;
+    font-size:clamp(30px,7.6vw,76px);margin:22px 0 20px;overflow-wrap:break-word;
+  }
+  h1 .glow{color:var(--gold);text-shadow:0 0 34px rgba(245,197,66,.4);animation:glowpulse 4.5s ease-in-out infinite}
+  @keyframes glowpulse{0%,100%{text-shadow:0 0 28px rgba(245,197,66,.32)}50%{text-shadow:0 0 46px rgba(245,197,66,.6)}}
+  .lede{font-size:clamp(17px,2vw,20px);color:var(--soft);max-width:33ch}
+  .hero-ctas{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:15.5px;
+    padding:14px 24px;border-radius:11px;transition:.22s var(--ease);cursor:pointer;border:1px solid transparent;
+  }
+  .btn-gold{background:linear-gradient(180deg,var(--gold-2),var(--gold));color:#161200;box-shadow:0 8px 30px -8px rgba(245,197,66,.55)}
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 14px 40px -10px rgba(245,197,66,.7)}
+  .btn-ghost{border-color:var(--line2);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--gold);background:rgba(245,197,66,.06);transform:translateY(-2px)}
+  .hero-meta{display:flex;gap:26px;margin-top:38px;flex-wrap:wrap}
+  .hero-meta div{font-size:13.5px;color:var(--dim)}
+  .hero-meta b{display:block;font-family:'Bricolage Grotesque';font-weight:700;font-size:26px;color:var(--ink);letter-spacing:-.02em}
+  .hero-diff{margin-top:18px;font-size:13.5px;color:var(--dim);line-height:1.7}
+  .hero-diff a{color:var(--gold-dim);border-bottom:1px solid rgba(245,197,66,.25);transition:.2s var(--ease)}
+  .hero-diff a:hover{color:var(--gold);border-bottom-color:var(--gold)}
+
+  /* phone frame */
+  .phone-wrap{display:flex;justify-content:center;position:relative;max-width:100%}
+  .phone-wrap::before{content:"";position:absolute;width:min(340px,88%);height:340px;max-height:88vw;border-radius:50%;
+    background:radial-gradient(circle,rgba(245,197,66,.22),transparent 68%);filter:blur(30px);top:12%}
+  .phone{
+    position:relative;width:290px;max-width:100%;border-radius:38px;padding:11px;
+    background:linear-gradient(160deg,#26262c,#0c0c0f);
+    box-shadow:0 40px 90px -30px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.06),inset 0 0 0 1px rgba(255,255,255,.03);
+  }
+  .phone img{width:100%;display:block;border-radius:28px}
+  .phone .notch{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:96px;height:22px;background:#0c0c0f;border-radius:0 0 14px 14px;z-index:2}
+  .float{animation:float 6s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+
+  /* ---- reveal ---- */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  .stagger>*{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  .stagger.in>*{opacity:1;transform:none}
+  .stagger.in>*:nth-child(2){transition-delay:.08s}
+  .stagger.in>*:nth-child(3){transition-delay:.16s}
+  .stagger.in>*:nth-child(4){transition-delay:.24s}
+  .stagger.in>*:nth-child(5){transition-delay:.32s}
+  .stagger.in>*:nth-child(6){transition-delay:.4s}
+
+  /* ---- sections ---- */
+  section{padding:86px 0}
+  .kicker{font-family:'JetBrains Mono';font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-dim)}
+  h2{font-family:'Bricolage Grotesque';font-weight:800;letter-spacing:-.03em;line-height:1.05;font-size:clamp(30px,4.2vw,46px);margin:14px 0 16px}
+  .sec-lede{color:var(--soft);max-width:60ch;font-size:18px}
+  h1{-webkit-hyphens:none;hyphens:none}
+  h2,h3{text-wrap:balance;overflow-wrap:break-word;-webkit-hyphens:none;hyphens:none}
+  p,li,.sec-lede,.lede{text-wrap:pretty;-webkit-hyphens:none;hyphens:none}
+  /* proof strip */
+  .pstrip{padding:60px 0;border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(245,197,66,.035),transparent)}
+  .pstrip h2{font-size:clamp(26px,3.4vw,38px)}
+  .pcards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:30px}
+  @media(max-width:900px){.pcards{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.pcards{grid-template-columns:1fr}}
+  .pcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;transition:.25s var(--ease)}
+  .pcard:hover{border-color:rgba(245,197,66,.35);transform:translateY(-3px)}
+  .pcard .plabel{font-family:'Bricolage Grotesque';font-weight:800;font-size:20px;color:var(--gold);letter-spacing:-.02em;margin-bottom:10px}
+  .pcard p{color:var(--soft);font-size:13.5px;line-height:1.55}
+  .pcard a{color:var(--gold);white-space:nowrap}
+  .pcard .mono{font-family:'JetBrains Mono';font-size:12px}
+
+  /* threat */
+  .threat{background:linear-gradient(180deg,transparent,rgba(240,100,95,.04),transparent);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .threat-card{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+  @media(max-width:820px){.threat-card{grid-template-columns:1fr;gap:24px}}
+  .ban-quote{text-wrap:balance;border-left:2px solid var(--red);padding:18px 22px;background:rgba(240,100,95,.05);border-radius:0 12px 12px 0;font-size:18px;color:var(--ink)}
+  .ban-quote span{color:var(--red);font-weight:600}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px}
+  @media(max-width:820px){.steps{grid-template-columns:1fr}}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px;position:relative;overflow:hidden;transition:.25s var(--ease)}
+  .step:hover{border-color:var(--line2);transform:translateY(-3px)}
+  .step .n{font-family:'JetBrains Mono';font-size:13px;color:var(--gold);border:1px solid rgba(245,197,66,.3);border-radius:7px;padding:3px 9px;display:inline-block}
+  .step h3{font-family:'Bricolage Grotesque';font-weight:700;font-size:21px;margin:16px 0 8px;letter-spacing:-.02em}
+  .step p{color:var(--soft);font-size:15.5px}
+  .step .glyph{position:absolute;right:-14px;bottom:-18px;font-size:110px;opacity:.05;font-family:'Bricolage Grotesque';font-weight:800}
+
+  /* features */
+  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px}
+  @media(max-width:900px){.feat-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.feat-grid{grid-template-columns:1fr}}
+  .feat{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:26px;transition:.25s var(--ease)}
+  .feat:hover{border-color:rgba(245,197,66,.35);transform:translateY(-3px);box-shadow:0 20px 50px -30px rgba(245,197,66,.4)}
+  .feat .ic{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;background:rgba(245,197,66,.1);border:1px solid rgba(245,197,66,.22);margin-bottom:16px}
+  .feat .ic svg{width:22px;height:22px;stroke:var(--gold);fill:none;stroke-width:1.7}
+  .feat h3{font-family:'Bricolage Grotesque';font-weight:700;font-size:19px;letter-spacing:-.02em;margin-bottom:7px}
+  .feat p{color:var(--soft);font-size:15px}
+  .feat .tag{display:inline-block;margin-top:12px;font-family:'JetBrains Mono';font-size:11.5px;color:var(--gold-dim);border-top:1px solid var(--line);padding-top:10px}
+  .feat .tag-link{color:var(--gold);transition:color .2s,transform .2s var(--ease);cursor:pointer}
+  .feat .tag-link:hover{color:var(--gold-2);transform:translateX(2px)}
+
+  /* access */
+  .access-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;margin-top:44px;align-items:center}
+  @media(max-width:820px){.access-grid{grid-template-columns:1fr;gap:26px}}
+  .access-list{list-style:none;display:grid;gap:14px}
+  .access-list li{display:flex;gap:13px;align-items:flex-start;color:var(--soft);font-size:15.5px}
+  .access-list li svg{flex:none;width:20px;height:20px;stroke:var(--gold);fill:none;stroke-width:1.8;margin-top:2px}
+  .access-list b{color:var(--ink)}
+  .access-card{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line2);border-radius:20px;padding:32px;text-align:center}
+  .access-card .price{font-family:'Bricolage Grotesque';font-weight:800;font-size:34px;letter-spacing:-.02em;margin-bottom:4px}
+  .access-card .price small{display:block;font-family:'Hanken Grotesk';font-weight:400;font-size:14px;color:var(--dim);margin-top:6px}
+  .access-card .free{margin:14px 0 2px;font-size:15px;color:var(--soft)}
+  .access-card .free b{color:var(--gold)}
+  .tiers{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin:18px 0 22px}
+  .tiers span{font-family:'JetBrains Mono';font-size:11.5px;color:var(--soft);border:1px solid var(--line2);border-radius:7px;padding:5px 9px}
+
+  /* proof */
+  .shots{display:grid;grid-template-columns:repeat(2,1fr);gap:26px 40px;margin-top:44px;max-width:820px;margin-inline:auto}
+  @media(max-width:560px){.shots{grid-template-columns:1fr;max-width:340px}}
+  .shot{text-align:center}
+  .shot .frame{background:linear-gradient(160deg,#222228,#0c0c0f);border-radius:30px;padding:9px;box-shadow:0 30px 70px -34px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.05);transition:.3s var(--ease)}
+  .shot:hover .frame{transform:translateY(-6px)}
+  .shot img{width:100%;border-radius:23px;display:block}
+  .shot h3{font-family:'Bricolage Grotesque';font-weight:700;font-size:17px;margin:18px 0 5px}
+  .shot p{color:var(--dim);font-size:14px}
+
+  /* vault */
+  .vault-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:44px;align-items:center;margin-top:44px}
+  @media(max-width:880px){.vault-grid{grid-template-columns:1fr;gap:30px}}
+  .vault-points{list-style:none;display:grid;gap:18px;margin-top:8px}
+  .vault-points li{color:var(--soft);font-size:15.5px;padding-left:20px;position:relative}
+  .vault-points li::before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;border-radius:2px;background:var(--gold);box-shadow:0 0 8px rgba(245,197,66,.5)}
+  .vault-points b{color:var(--ink)}
+  /* the mock vault panel */
+  .vault-ui{background:linear-gradient(180deg,#141419,#0c0c10);border:1px solid var(--line2);border-radius:22px;padding:20px;box-shadow:0 40px 90px -40px rgba(0,0,0,.9)}
+  .vault-ui .vhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+  .vault-ui .vtitle{font-family:'Bricolage Grotesque';font-weight:700;font-size:16px}
+  /* app-first group header (mirrors the app's app -> logins drill-down) */
+  .vapp{display:flex;align-items:center;gap:11px;padding:11px 12px;border-radius:12px;background:rgba(255,255,255,.03);margin-bottom:6px}
+  .vappicon{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:rgba(245,197,66,.12);border:1px solid rgba(245,197,66,.28);flex:none}
+  .vappicon svg{width:16px;height:16px;stroke:var(--gold);fill:none;stroke-width:1.7}
+  .vappname{font-weight:600;font-size:14px;color:var(--ink);flex:1}
+  .vappcount{font-family:'JetBrains Mono';font-size:11.5px;color:var(--gold-dim)}
+  .vchips{display:flex;gap:7px}
+  .vchip{font-family:'JetBrains Mono';font-size:11px;padding:5px 10px;border-radius:8px;border:1px solid var(--line);color:var(--soft)}
+  .vchip.on{background:var(--gold);color:#161200;border-color:var(--gold);font-weight:700}
+  .vrow{display:flex;align-items:center;gap:13px;padding:14px 12px;border-radius:14px;transition:background .2s}
+  .vrow+.vrow{border-top:1px solid var(--line)}
+  .vrow:hover{background:rgba(245,197,66,.04)}
+  .vmono{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;font-family:'Bricolage Grotesque';font-weight:800;font-size:16px;color:#161200;flex:none}
+  .vcol{flex:1;min-width:0}
+  .vname{font-weight:600;font-size:15px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .vsub{font-size:12px;color:var(--soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .vsub .tzdot{color:var(--sage)}
+  .vrestore{font-family:'Hanken Grotesk';font-weight:600;font-size:13px;color:#161200;background:linear-gradient(180deg,var(--gold-2),var(--gold));border-radius:9px;padding:8px 15px;flex:none}
+  .vault-note{font-family:'JetBrains Mono';font-size:12px;color:var(--soft);margin-top:14px;text-align:center}
+  .ipcard{background:linear-gradient(180deg,#141419,#0c0c10);border:1px solid var(--line2);border-radius:22px;padding:22px;box-shadow:0 40px 90px -40px rgba(0,0,0,.9)}
+  .iphead{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+  .iptitle{font-family:'JetBrains Mono';font-size:14px;color:var(--soft);letter-spacing:.02em}
+  .ipverdict{font-family:'JetBrains Mono';font-size:12px;font-weight:700;letter-spacing:.1em;color:#63c088;border:1px solid rgba(99,192,136,.4);background:rgba(99,192,136,.1);border-radius:7px;padding:4px 10px}
+  .iprow{display:grid;grid-template-columns:minmax(0,118px) 1fr auto;align-items:center;gap:12px;padding:9px 0;border-top:1px solid var(--line)}
+  .ipsrc{font-size:13.5px;color:var(--ink)}
+  .ipbar{height:6px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden}
+  .ipbar i{display:block;height:100%;background:linear-gradient(90deg,#63c088,#4fb0c9);border-radius:4px}
+  .ipval{font-family:'JetBrains Mono';font-size:12.5px;color:var(--soft);text-align:right;white-space:nowrap}
+  .ipflags{display:flex;gap:8px;grid-column:2/4;justify-self:start;flex-wrap:wrap}
+  .ipok{font-family:'JetBrains Mono';font-size:11px;color:#63c088;border:1px solid rgba(99,192,136,.35);border-radius:6px;padding:2px 8px}
+  .ipmeta{font-family:'JetBrains Mono';font-size:12px;color:var(--dim);margin-top:14px}
+
+  /* comparison */
+  .cmp-wrap{margin-top:40px;overflow-x:auto;border:1px solid var(--line);border-radius:18px;background:var(--card)}
+  table{width:100%;border-collapse:collapse;min-width:640px}
+  th,td{padding:16px 20px;text-align:left;border-bottom:1px solid var(--line);font-size:15px}
+  thead th{font-family:'JetBrains Mono';font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);font-weight:500}
+  thead th.spec{color:var(--gold)}
+  tbody td:first-child{color:var(--soft)}
+  .col-spec{background:rgba(245,197,66,.05);border-left:1px solid rgba(245,197,66,.2);border-right:1px solid rgba(245,197,66,.2);font-weight:600;color:var(--ink)}
+  tbody tr:last-child td{border-bottom:none}
+  .yes{color:var(--sage)}.no{color:var(--red)}.mid{color:var(--dim)}
+  .yes::before{content:"✓ "}.no::before{content:"✕ "}
+
+  /* deep dive */
+  .dd{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-top:16px;overflow:hidden}
+  .dd summary{padding:20px 24px;cursor:pointer;font-family:'Bricolage Grotesque';font-weight:700;font-size:18px;list-style:none;display:flex;justify-content:space-between;align-items:center;transition:.2s}
+  .dd summary::-webkit-details-marker{display:none}
+  .dd summary::after{content:"+";color:var(--gold);font-size:24px;font-weight:400}
+  .dd[open] summary::after{content:"–"}
+  .dd summary:hover{background:rgba(245,197,66,.04)}
+  .dd .body{padding:0 24px 22px;color:var(--soft);font-size:15.5px}
+  .dd .body p{margin-bottom:12px}
+  .dd .body b{color:var(--ink)}
+
+  /* cta */
+  .final{text-align:center;padding:100px 0}
+  .final-card{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line2);border-radius:26px;padding:64px 32px;position:relative;overflow:hidden}
+  .final-card::before{content:"";position:absolute;inset:0;background:radial-gradient(50% 90% at 50% 0%,rgba(245,197,66,.14),transparent 62%)}
+  .final-card>*{position:relative}
+  .final h2{font-size:clamp(32px,5vw,52px)}
+  .final .ghost-big{width:64px;height:64px;margin:0 auto 20px;filter:drop-shadow(0 0 26px rgba(245,197,66,.6))}
+
+  footer{border-top:1px solid var(--line);padding:40px 0;color:var(--dim);font-size:14px}
+  .foot-in{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+  .foot-links{display:flex;gap:22px}
+  .foot-links a:hover{color:var(--gold)}
+  .disclaimer{max-width:var(--maxw);margin:0 auto;padding:0 24px 40px;color:var(--dim);font-size:12.5px;line-height:1.7}
+
+  /* signal strip */
+  .signal{display:flex;gap:10px;align-items:baseline;font-family:'JetBrains Mono';font-size:12.5px;color:var(--dim);margin-top:16px;flex-wrap:wrap;overflow-wrap:anywhere;max-width:100%}
+  .signal b{color:var(--sage)}
+</style>
+</head>
+<body>
+
+<!-- ghost svg symbol -->
+<svg width="0" height="0" style="position:absolute"><symbol id="ghost" viewBox="0 0 32 32"><path d="M6 27V13a10 10 0 0 1 20 0v14l-3.3-2.4L19.4 27 16 24.6 12.6 27 9.3 24.6 6 27Z" fill="#f5c542"/><circle cx="12" cy="14" r="2" fill="#161200"/><circle cx="20" cy="14" r="2" fill="#161200"/></symbol></svg>
+
+<nav>
+  <div class="wrap nav-in">
+    <a class="brand" href="#top"><svg class="ghost" aria-hidden="true"><use href="#ghost"/></svg>Specter</a>
+    <div class="nav-links">
+      <a href="#why">Why</a>
+      <a href="#how">How it works</a>
+      <a href="#features">Features</a> <a href="#proxy">Proxy</a>
+      <a href="#compare">vs GeerGit</a>
+      <a href="#access">Access</a>
+      <a href="https://github.com/aaronvstory/specter-app" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
+    </div>
+    <a class="nav-cta mono" href="#access">Get access</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu" hidden>
+    <a href="#why">Why</a>
+    <a href="#how">How it works</a>
+    <a href="#features">Features</a> <a href="#proxy">Proxy</a>
+    <a href="#compare">vs GeerGit</a>
+    <a href="#faq">FAQ</a>
+    <a href="#access">Access</a>
+    <a href="https://github.com/aaronvstory/specter-app" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
+  </div>
+</nav>
+
+<main id="top">
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow"><span class="dot"></span>Per‑account device identity</span>
+      <h1>Every account gets a device that <span class="glow">never existed</span>.</h1>
+      <p class="lede">Specter generates a complete, internally‑consistent Android device profile for each signup - then proves it on‑device. The guarantee the paid tools broke: <b style="color:var(--ink)">no identifier is ever reused</b>.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-gold" href="#access">Get Specter <span aria-hidden="true">→</span></a>
+        <a class="btn btn-ghost" href="#how">See how it works</a>
+      </div>
+      <div class="signal"><span>●</span> android_id · GSF · MediaDRM · IMEI · fingerprint · radio · kernel · RAM - <b>all coherent, all fresh</b></div>
+      <div class="hero-diff">Beyond the fingerprint: <a href="#vault">save the login too</a> · <a href="#proxy">vet the proxy exit</a> · <a href="#proof-strip">verify on both read paths</a> · 44-country SIM</div>
+      <div class="hero-meta">
+        <div><b>30+</b>signals aligned</div>
+        <div><b>499</b>real‑device DB</div>
+        <div><b>0</b>reused ids</div>
+      </div>
+    </div>
+    <div class="phone-wrap">
+      <div class="phone float">
+        <img src="assets/screen-identity.png" alt="Specter - current identity screen, applying a generated Google Pixel 4a (5G) profile" loading="eager" />
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- PROOF STRIP -->
+<section class="pstrip" id="proof-strip">
+  <div class="wrap">
+    <div class="reveal"><span class="kicker">Proof, not promises</span>
+    <h2>Claims you can check yourself.</h2>
+    <p class="sec-lede">The hero makes strong claims. Here’s the measured evidence behind them - checked on‑device and under test.</p></div>
+    <div class="pcards stagger">
+      <div class="pcard"><div class="plabel">Dual‑path verified</div><p>The spoofed <span class="mono">Build.*</span> fields and their mapped <span class="mono">ro.*</span> aliases read the same value on both the LSPosed (Java) and Zygisk (native) path - an on‑device dual‑read probe confirms it.</p></div>
+      <div class="pcard"><div class="plabel">0 collisions</div><p>Across 5,000+ generated identities: zero repeated identifiers. A file‑locked ledger checks every id before it’s handed out - race‑safe across concurrent processes.</p></div>
+      <div class="pcard"><div class="plabel">Byte‑parity</div><p>The module (Java) and the core (Python) consume the seeded RNG in identical order, so the same seed yields identical output - enforced by an automated parity test.</p></div>
+      <div class="pcard"><div class="plabel">300+ tests</div><p>Key guarantees are under automated tests; external‑reviewer findings were fixed with regression tests. <a href="#proof">See it verified →</a></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY / THREAT -->
+<section id="why" class="threat">
+  <div class="wrap threat-card reveal">
+    <div>
+      <span class="kicker">Why it matters</span>
+      <h2>Coherent and fresh, so nothing cross‑links.</h2>
+      <p class="sec-lede">Fraud stacks cluster accounts by device, not by name. One reused id, or an impossible hardware combo, links your accounts and gets them removed for “coordinated abuse.”</p>
+      <p class="sec-lede" style="margin-top:14px">Specter gives every account a <b style="color:var(--ink)">unique, internally consistent device</b>. No repeated identifier. No contradictory field. No shared thread to pull.</p>
+    </div>
+    <div class="ban-quote">
+      “Your account has been deactivated for <span>coordinated platform abuse</span> - shared or multiple accounts.”
+      <div style="margin-top:14px;font-family:'JetBrains Mono';font-size:12.5px;color:var(--dim)">- what shared device signals get you</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section id="how">
+  <div class="wrap">
+    <div class="reveal"><span class="kicker">The mechanism</span>
+    <h2>Generate. Apply. Verify.</h2>
+    <p class="sec-lede">One coherent profile per signup, not a field-by-field toggle. Fingerprint matches the build. IMSI matches the carrier. SoC matches the GPU. Applied through LSPosed + Zygisk, then read back by a probe.</p></div>
+    <div class="steps stagger">
+      <div class="step"><span class="n">01</span><h3>Generate a coherent identity</h3><p>Pick from 499 real phones. Every dependent signal is derived to match: model, radio, bootloader, kernel, RAM, display. An incoherent combo is itself a flag. Specter never ships one.</p><span class="glyph">01</span></div>
+      <div class="step"><span class="n">02</span><h3>Apply on‑device</h3><p>Two layers, both read paths. LSPosed hooks the Java <span class="mono" style="font-size:13px">Build.*</span> APIs. A Zygisk layer covers the native <span class="mono" style="font-size:13px">ro.*</span> props an SDK reads through libc. Per‑app, reversible.</p><span class="glyph">02</span></div>
+      <div class="step"><span class="n">03</span><h3>Prove it read back</h3><p>A probe reads every spoofable API back, Java and native side by side. If a value leaks the real device, you see it. No trusting the UI.</p><span class="glyph">03</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="wrap">
+    <div class="reveal"><span class="kicker">What's inside</span>
+    <h2>A whole identity, not a spoofed field.</h2>
+    <p class="sec-lede">Fraud SDKs hash ~30 hardware and OS signals into one composite. Set the IDs alone and that composite stays constant across your accounts. Specter sets the composite signals too.</p></div>
+    <div class="feat-grid stagger">
+      <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>Coherent by construction</h3><p>Fingerprint ↔ build, IMSI ↔ carrier, SoC ↔ GPU, board ↔ hardware. Enforced and unit‑tested. A Galaxy A01 can't wear an S21 bootloader.</p><span class="tag">30+ signals aligned</span></div>
+      <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7c0-1.5 3.6-3 8-3s8 1.5 8 3-3.6 3-8 3-8-1.5-8-3Z"/><path d="M4 7v10c0 1.5 3.6 3 8 3s8-1.5 8-3V7"/><path d="M4 12c0 1.5 3.6 3 8 3s8-1.5 8-3"/></svg></div><h3>Never‑reuse ledger</h3><p>Every issued id is logged to a file‑locked ledger and checked before reuse. Race‑safe. 5,000+ generations, zero collisions.</p><span class="tag">the guarantee the paid tools broke</span></div>
+      <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 20h10M8 8h5M8 12h8"/></svg></div><h3>AppData login vault</h3><p>Clone the device <i>and</i> the login. Save a session, restore it later, and the app opens already signed in. Captured on‑device, linked to its fingerprint. Export both as one bundle.</p><span class="tag">app‑agnostic capture</span></div>
+      <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3.5 9h17M3.5 15h17M12 3c-3 3-3 15 0 18M12 3c3 3 3 15 0 18"/></svg></div><h3>Exit‑IP reputation</h3><p>A clean device on a burned proxy still draws friction. The built‑in checker grades a proxy exit before you assign it: fraud score, VPN/abuse flags, ASN, blacklist sweep. Timezone auto‑aligns to the exit.</p><a class="tag tag-link" href="https://webapp-kappa-sandy-12.vercel.app" target="_blank" rel="noopener">Try the live checker →</a></div>
+      <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M5 8l7-5 7 5M5 8v8l7 5 7-5V8"/></svg></div><h3>Deep protections</h3><p>Root, mock-location, developer-mode, VPN interfaces and the app list read clean to scoped apps. WebRTC exposes only the routed address. The browser User‑Agent matches the applied phone.</p><span class="tag">10+ toggles</span></div>
+      <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg></div><h3>On‑device verification</h3><p>A harness reads back what the target app actually stored: coverage, rotation across launches, backup round‑trip, leak audit vs OS ground truth. Fails loud, never false‑passes.</p><span class="tag">measure, don't assume</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section id="proof">
+  <div class="wrap">
+    <div class="reveal"><span class="kicker">On the glass</span>
+    <h2>Read back, not promised.</h2>
+    <p class="sec-lede">Real screens from the on‑device app. Every value shown is generated - a throwaway identity, not a real account.</p></div>
+    <div class="shots stagger">
+      <div class="shot"><div class="frame"><img src="assets/screen-identity.png" alt="Specter Identity screen showing a generated Google Pixel 4a (5G) on T-Mobile, ready to apply to one scoped app, with save-to-vault and monitor-reads enabled"/></div><h3>One tap to apply</h3><p>Generate → apply to a scoped app → save to the vault.</p></div>
+      <div class="shot"><div class="frame"><img src="assets/screen-fields.png" alt="Identity detail screen listing the coherent device fields - manufacturer Google, model Pixel 4a (5G), brand google, device bramble, a matching build fingerprint, T-Mobile carrier - and generated Android ID, GSF ID and Advertising ID"/></div><h3>Coherent, down to the fingerprint</h3><p>Model, brand, device, fingerprint, carrier and 16 identifiers - all aligned.</p></div>
+      <div class="shot"><div class="frame"><img src="assets/screen-protections.png" alt="Protections settings with toggles enabled for hide root, hide mock location, hide developer mode, hide app list, hide VPN interfaces, fix WebRTC leak, match browser signature, randomize install time and match hardware profile"/></div><h3>The signals SDKs actually read</h3><p>Root, mock, dev‑mode, WebRTC, UA, hardware - matched or hidden.</p></div>
+      <div class="shot"><div class="frame"><img src="assets/screen-power.png" alt="Specter settings showing IP-reputation provider configuration and advanced root controls"/></div><h3>Built‑in reputation + root control</h3><p>Four IP-reputation sources with keys shipped in - no signup needed, add your own to override - plus root‑level Widevine L3 and Google‑ID reset.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- VAULT -->
+<section id="vault">
+  <div class="wrap">
+    <div class="reveal"><span class="kicker">The vault</span>
+    <h2>Every identity, organized and restorable.</h2>
+    <p class="sec-lede">A fingerprint clones the device; an AppData save clones the login. Save both together and bring an account back exactly as it was - on the same phone, or exported to another.</p></div>
+    <div class="vault-grid">
+      <ul class="vault-points reveal">
+        <li><b>Named by whose it is.</b> Each saved login is titled by the identity it belongs to - not a bare timestamp - so you always know which account you're restoring.</li>
+        <li><b>App‑first, one‑to‑many.</b> Logins group by app, and one identity can hold several logins. Restore picks exactly which one, never guesses.</li>
+        <li><b>Export &amp; import.</b> Move a fingerprint and its login to another phone as a single portable bundle.</li>
+        <li><b>Honest about limits.</b> A same‑device restore always works; the app tells you plainly when a keystore-locked login can't cross devices.</li>
+      </ul>
+      <div class="vault-ui reveal" role="img" aria-label="Illustrative Specter vault: a Driver app group holding 3 saved logins, each titled by the identity it belongs to - Ava Thompson on a Google Pixel 5a, Marcus Reed on a Samsung Galaxy S21, Elena Ruiz on a Motorola Edge - each with its own Restore action.">
+        <div class="vhead">
+          <span class="vtitle">Saved</span>
+          <div class="vchips"><span class="vchip">Fingerprints</span><span class="vchip">AppData</span><span class="vchip on">Both</span></div>
+        </div>
+        <div class="vapp">
+          <span class="vappicon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="7" width="16" height="13" rx="2"/><path d="M8 7V5a4 4 0 0 1 8 0v2"/></svg></span>
+          <span class="vappname">Driver app</span>
+          <span class="vappcount">3 logins</span>
+        </div>
+        <div class="vrow">
+          <div class="vmono" style="background:linear-gradient(140deg,#ffd968,#e8a91e)">AT</div>
+          <div class="vcol"><div class="vname">Ava Thompson · Google Pixel 5a</div><div class="vsub">Wed 08/12 · 1.1 MB · restores its fingerprint too</div></div>
+          <span class="vrestore">Restore</span>
+        </div>
+        <div class="vrow">
+          <div class="vmono" style="background:linear-gradient(140deg,#8fd4ff,#3f95d8)">MR</div>
+          <div class="vcol"><div class="vname">Marcus Reed · Samsung Galaxy S21</div><div class="vsub">Tue 08/11 · 4.9 MB · <span class="tzdot">TZ aligned to proxy</span></div></div>
+          <span class="vrestore">Restore</span>
+        </div>
+        <div class="vrow">
+          <div class="vmono" style="background:linear-gradient(140deg,#b8f5a8,#5fb84e)">ER</div>
+          <div class="vcol"><div class="vname">Elena Ruiz · Motorola Edge</div><div class="vsub">Mon 08/10 · 773 KB · restores its fingerprint too</div></div>
+          <span class="vrestore">Restore</span>
+        </div>
+        <div class="vault-note">Illustrative vault mockup - simulated data, not an app screenshot</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROXY + IP -->
+<section id="proxy">
+  <div class="wrap">
+    <div class="reveal"><span class="kicker">Proxy &amp; exit IP</span>
+    <h2>Hide the tunnel. Vet the exit.</h2>
+    <p class="sec-lede">A coherent device behind a burned or leaky proxy still gets flagged. Specter covers both sides: it hides that you are tunnelling at all, and it grades the exit IP before you ever put an account on it.</p></div>
+    <div class="vault-grid">
+      <ul class="vault-points reveal">
+        <li><b>Hide the tunnel.</b> Scoped apps cannot tell you are on a proxy or VPN. No VPN network interface shows up, and WebRTC hands back only the routed address, never your real local IP.</li>
+        <li><b>Timezone follows the exit.</b> The device timezone auto-aligns to the proxy exit IP, so the location signals agree with where the IP says you are.</li>
+        <li><b>Vet before you assign.</b> The built-in checker grades a proxy exit before you use it, so a flagged or burned IP never touches an account.</li>
+        <li><b>Four sources, keys included.</b> IPQualityScore, Scamalytics, AbuseIPDB and ip-api are wired in with keys shipped. No signup, nothing to configure. Add your own to override.</li>
+      </ul>
+      <div class="ipcard reveal" role="img" aria-label="Illustrative exit-IP reputation readout: four sources (IPQualityScore, Scamalytics, AbuseIPDB, ip-api) all reading clean, low fraud scores, no proxy or abuse flags, verdict CLEAN, residential ASN, timezone aligned to the exit.">
+        <div class="iphead"><span class="iptitle">Exit IP &middot; reputation</span><span class="ipverdict">CLEAN</span></div>
+        <div class="iprow"><span class="ipsrc">IPQualityScore</span><span class="ipbar"><i style="width:5%"></i></span><span class="ipval">fraud 3 / 100</span></div>
+        <div class="iprow"><span class="ipsrc">Scamalytics</span><span class="ipbar"><i style="width:9%"></i></span><span class="ipval">low &middot; 9</span></div>
+        <div class="iprow"><span class="ipsrc">AbuseIPDB</span><span class="ipbar"><i style="width:2%"></i></span><span class="ipval">2% abuse</span></div>
+        <div class="iprow"><span class="ipsrc">ip-api</span><span class="ipflags"><span class="ipok">no proxy</span><span class="ipok">no VPN</span><span class="ipok">no hosting</span></span></div>
+        <div class="ipmeta">Residential &middot; ASN AS7922 Comcast &middot; timezone aligned to exit</div>
+        <div class="vault-note">Illustrative readout - simulated data, not an app screenshot</div>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:28px"><a class="btn btn-ghost" href="https://webapp-kappa-sandy-12.vercel.app" target="_blank" rel="noopener">Try the live checker <span aria-hidden="true">&#8599;</span></a></p>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section id="compare">
+  <div class="wrap">
+    <div class="reveal"><span class="kicker">Head to head</span>
+    <h2>Built against the tool it replaces.</h2>
+    <p class="sec-lede">Specter grew out of GeerGit: we built on its hook surface, then fixed the identifier-reuse bug that started this project. Here is how it compares to the current crop of Android device-spoofing tools.</p></div>
+    <p class="mono" style="font-size:12.5px;color:var(--dim);margin-top:18px">Scroll the table sideways on a narrow screen, or focus it and use the arrow keys.</p>
+    <div class="cmp-wrap reveal" tabindex="0" role="region" aria-label="Specter capability comparison - scrollable">
+      <table>
+        <caption class="sr-only">Capability comparison: Specter versus GeerGit, HideMyAndroid, and RshMod.</caption>
+        <thead><tr><th scope="col">Capability</th><th scope="col" class="spec">Specter</th><th scope="col">GeerGit</th><th scope="col">HideMyAndroid</th><th scope="col">RshMod</th></tr></thead>
+        <tbody>
+          <tr><td>No identifier ever reused</td><td class="col-spec"><span class="yes">Ledger-enforced</span></td><td class="no">Reused a stale id (v2.9.6)</td><td class="mid">Not advertised</td><td class="mid">Not advertised</td></tr>
+          <tr><td>On-device read-back proof</td><td class="col-spec"><span class="yes">Probe harness</span></td><td class="mid">Trust the UI</td><td class="mid">Trust the UI</td><td class="mid">Trust the UI</td></tr>
+          <tr><td>Native <span class="mono" style="font-size:12px">ro.*</span> prop path (libc)</td><td class="col-spec"><span class="yes">Zygisk + LSPosed</span></td><td class="mid">LSPosed (Java)</td><td class="mid">LSPosed (Java)</td><td class="mid">LSPosed (Java)</td></tr>
+          <tr><td>Coherent params (model, carrier, radio)</td><td class="col-spec"><span class="yes">Tested invariants</span></td><td class="mid">Yes</td><td class="mid">Yes</td><td class="mid">Auto-matched</td></tr>
+          <tr><td>App login / session migration</td><td class="col-spec"><span class="yes">AppData vault</span></td><td class="mid">Not advertised</td><td class="mid">Profile backup only</td><td class="mid">Not advertised</td></tr>
+          <tr><td>Exit-IP reputation built in</td><td class="col-spec"><span class="yes">4 sources + TZ align</span></td><td class="mid">Not advertised</td><td class="mid">Per-profile proxy</td><td class="mid">Not advertised</td></tr>
+          <tr><td>Multi-country SIM</td><td class="col-spec"><span class="yes">44 countries</span></td><td class="mid">Not advertised</td><td class="mid">Not advertised</td><td class="yes">50+ countries</td></tr>
+          <tr><td>Byte-parity + open testing</td><td class="col-spec"><span class="yes">300+ tests</span></td><td class="mid">Closed</td><td class="mid">Closed</td><td class="mid">Closed</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mono" style="font-size:12px;color:var(--dim);margin-top:14px">Competitor data is from each tool’s own public feature list (2026). "Not advertised" means the tool does not claim the capability, not that it is provably absent.</p>
+  </div>
+</section>
+
+<!-- DEEP DIVE -->
+<section id="deep">
+  <div class="wrap">
+    <div class="reveal"><span class="kicker">For the technical</span>
+    <h2>Necessary, not sufficient - and honest about it.</h2>
+    <p class="sec-lede">Specter owns the <b style="color:var(--ink)">device</b> layer completely. It does not pretend to own the ones it can't.</p></div>
+    <div class="reveal">
+      <details class="dd"><summary>The two injection layers</summary><div class="body"><p><b>LSPosed (Java):</b> hooks <span class="mono" style="font-size:13px">Build.*</span> fields and their <span class="mono" style="font-size:13px">SystemProperties</span> aliases, per‑app, gated on the module's scope.</p><p><b>Zygisk (native):</b> an inline hook on <span class="mono" style="font-size:13px">__system_property_get</span> so a fingerprinter reading a prop through libc gets the spoofed value on the native path too - the blind spot Java‑only tools leave open. The probe confirms Java and native agree, field by field.</p></div></details>
+      <details class="dd"><summary>Coherence is the whole point</summary><div class="body"><p>Fraud SDKs derive a composite from ~30 hardware/OS signals. Set only the IDs and that composite stays constant across your “different” accounts - a perfect linker. Specter sets the composite signals (bootloader, radio, kernel, board, hardware, RAM, display) so they align with the one chosen device. Coherence is enforced by cross‑field validators and Java↔Python byte‑parity tests.</p></div></details>
+      <details class="dd"><summary>The ceilings no device tool can cross</summary><div class="body"><p>Account linking has three layers; Specter is one. <b>Identity</b> - a platform that re-verifies with a live selfie + gov ID needs a distinct real identity per account; no spoof beats a selfie. <b>Location &amp; behaviour</b> - observed GPS and driving telematics need their own plausible, self-consistent motion. Specter gives you a clean, coherent device and ties the timezone to the proxy exit; the proxy, GPS and identity are yours. We say this plainly rather than imply a device tool is enough.</p></div></details>
+      <details class="dd"><summary>What the login vault can and can't carry</summary><div class="body"><p>The AppData capture is app‑agnostic - it takes the whole app data dir (databases incl. the SQLite WAL where live tokens sit, shared_prefs, files, WebView cookies). A same‑device restore always works. Moving a login to a <b>different</b> phone works for plaintext-token apps; a login an app locked to the device keystore can't decrypt elsewhere, because that key is hardware-bound and can't leave the chip. Honest by design.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="reveal"><span class="kicker">Questions</span>
+    <h2>Straight answers.</h2>
+    <p class="sec-lede">The things worth knowing before you commit - including what Specter deliberately does not claim.</p></div>
+    <div class="reveal">
+      <details class="dd"><summary>Which phones does it work on?</summary><div class="body"><p>A <b>rooted Android phone</b> with Magisk (Zygisk) and LSPosed.</p><p>The device pool is US-market (Samsung, Google, Motorola, LGE). Pick from <b>44 countries</b> for the SIM: carrier, phone number, locale and timezone.</p><p>Everything runs <b>on the phone</b> - no computer or PC connection needed.</p></div></details>
+      <details class="dd"><summary>Do I need a computer running?</summary><div class="body"><p><b>No.</b> The app is standalone - it generates identities, applies them, saves logins and verifies, all on the phone.</p><p>No desktop app, no USB cable, no PC connection while you use it.</p></div></details>
+      <details class="dd"><summary>Is it detectable?</summary><div class="body"><p>An app can check two things: the device signals, and whether a spoofing/root tool is on the phone. Specter covers both.</p><p><b>Signals read spoofed.</b> Every field returns the fake value on <b>both</b> read paths - Java (LSPosed) and native libc (Zygisk). An on‑device probe reads them back, so a leak is measured, not assumed.</p><p><b>Specter hides itself.</b> Scoped apps can't see Specter, LSPosed, root managers or other spoof tools in the installed‑app list. It hooks <span class="mono" style="font-size:13px">AppsFilter</span> in system_server (the binder path an SDK uses) plus the per‑app PackageManager queries - modeled on HideMyApplist.</p><p><b>The ceiling, plainly.</b> No device tool beats a server‑side <b>identity</b> check (live selfie + gov ID) or account‑linking from <b>location &amp; behaviour</b>. Those are separate layers - bring your own proxy, GPS and identity.</p></div></details>
+      <details class="dd"><summary>How is it different from GeerGit and other spoofers?</summary><div class="body"><p>It was reverse-engineered from GeerGit's own hook surface, then closed the gaps behind the failures it documented - chiefly a <b>never‑reuse ledger</b> (a reused identifier is what links accounts), <b>enforced cross‑field coherence</b>, native <span class="mono" style="font-size:13px">ro.*</span> prop coverage (not Java‑only), an <b>app login vault</b>, built‑in <b>exit‑IP reputation</b>, and an <b>on‑device verification</b> harness. See the comparison above.</p></div></details>
+      <details class="dd"><summary>Do I need to know how to code?</summary><div class="body"><p>No. Once the module is installed, everything - generate, apply, save/restore a login, verify, check an IP, activate - is driven from the on‑device app.</p></div></details>
+      <details class="dd"><summary>Will a saved login move to another phone?</summary><div class="body"><p>On the same phone, the captured login comes back intact. Moving a login to a <b>different</b> phone works for apps that keep a plaintext token; an app that locks its login to the device keystore can't decrypt it elsewhere, because that key is hardware-bound and can't leave the chip. The app tells you plainly which case you're in - no false promises.</p></div></details>
+      <details class="dd"><summary>How do I get access?</summary><div class="body"><p>Message <a href="https://t.me/pooks11" target="_blank" rel="noopener" style="color:var(--gold)">@pooks11 on Telegram</a>.</p><p>The first week is free. After that it's $20/month per device.</p><p>I verify your device and issue a signed activation code.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ACCESS -->
+<section id="access">
+  <div class="wrap">
+    <div class="reveal"><span class="kicker">Get access</span>
+    <h2>Licensed per device. Activated in a tap.</h2>
+    <p class="sec-lede">A device‑bound licence - one phone per code.<br>Free for the first week, then $20/month per device.<br>Message me on Telegram and I issue your code, usually same day.</p></div>
+    <div class="access-grid">
+      <ul class="access-list reveal">
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg><span><b>Device‑bound activation.</b> A signed code binds to one phone's hardware id - verified by both the Java and native layers before anything is applied.</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg><span><b>Free 1‑week trial.</b> Then $20/month per device - longer terms on request.</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7c0-1.5 3.6-3 8-3s8 1.5 8 3-3.6 3-8 3-8-1.5-8-3Z"/><path d="M4 7v10c0 1.5 3.6 3 8 3s8-1.5 8-3V7"/></svg><span><b>Runs on the phone.</b> Generate, apply, save logins and verify - all on‑device. No computer, no cloud, no telemetry.</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4Z"/></svg><span><b>Tested, not trusted.</b> 300+ Python tests, a JVM suite, and Java↔Python byte‑parity keep every build honest.</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg><span><b>Public on GitHub.</b> Releases, docs and changelog are public, so you see exactly what ships.</span></li>
+      </ul>
+      <div class="access-card reveal">
+        <div class="price">$20<small>per month, per device</small></div>
+        <div class="free">Start with a <b>free 1‑week trial</b></div>
+        <div class="tiers"><span>1 week free</span><span>$20 / month</span><span>longer terms on request</span></div>
+        <a class="btn btn-gold" style="width:100%;justify-content:center" href="https://t.me/pooks11" target="_blank" rel="noopener">Message @pooks11 on Telegram <span aria-hidden="true">→</span></a>
+        <p class="mono" style="font-size:11.5px;color:var(--dim);margin-top:14px">Requires a rooted phone (Magisk/Zygisk) + LSPosed</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final">
+  <div class="wrap">
+    <div class="final-card reveal">
+      <svg class="ghost-big" aria-hidden="true"><use href="#ghost"/></svg>
+      <h2>Give every account a clean device.</h2>
+      <p class="sec-lede" style="margin:14px auto 0;text-align:center">Coherent by construction. Verified on the glass. Never reused.</p>
+      <div class="hero-ctas" style="justify-content:center;margin-top:32px">
+        <a class="btn btn-gold" href="#access">Get Specter <span aria-hidden="true">→</span></a>
+        <a class="btn btn-ghost" href="#features">Explore features</a>
+      </div>
+      <p class="mono" style="font-size:12.5px;color:var(--dim);margin-top:26px;letter-spacing:.02em">Requires a rooted Android phone (Magisk / Zygisk) + LSPosed · US device pool, 44-country SIM · runs entirely on the phone</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-in">
+    <a class="brand" href="#top" style="font-size:18px"><svg class="ghost" style="width:24px;height:24px"><use href="#ghost"/></svg>Specter</a>
+    <div class="foot-links mono" style="font-size:13px">
+      <a href="#access">Access</a>
+      <a href="#how">How it works</a>
+      <a href="#compare">Comparison</a>
+      <a href="https://github.com/aaronvstory/specter-app" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+</footer>
+<div class="disclaimer">
+  Specter is a device-configuration and on‑device QA tool for rooted Android devices you own or are authorized to manage. You are responsible for complying with the terms of any service you use it with. Screenshots show generated, throwaway identities - not real accounts.
+</div>
+
+<script>
+  // mobile nav toggle
+  (function(){
+    const btn=document.getElementById('navToggle'), menu=document.getElementById('mobileMenu');
+    if(!btn||!menu) return;
+    const set=(open)=>{btn.setAttribute('aria-expanded',open);btn.setAttribute('aria-label',open?'Close menu':'Open menu');menu.hidden=!open;};
+    btn.addEventListener('click',()=>set(btn.getAttribute('aria-expanded')!=='true'));
+    menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>set(false)));
+    document.addEventListener('keydown',e=>{
+      if(e.key==='Escape' && btn.getAttribute('aria-expanded')==='true'){set(false);btn.focus();}
+    });
+  })();
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.16});
+  document.querySelectorAll('.reveal,.stagger').forEach(el=>io.observe(el));
+
+  // animated hero counters - count up from 0 to the final value; honour reduced-motion (show final immediately)
+  const nums=document.querySelectorAll('.hero-meta b');
+  const targets=[30,499,0], suff=['+','',''];
+  const reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  nums.forEach((n,i)=>{
+    const t=targets[i];
+    if(reduce||t===0){n.textContent=t+suff[i];return;}
+    let c=0; const step=Math.max(1,Math.round(t/38));
+    n.textContent='0';
+    const tick=()=>{c=Math.min(t,c+step); n.textContent=c+(c===t?suff[i]:''); if(c<t)requestAnimationFrame(tick)};
+    setTimeout(tick,320+i*130);
+  });
+</script>
+</body>
+</html>
