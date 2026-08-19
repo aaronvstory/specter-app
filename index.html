@@ -394,7 +394,7 @@
       <div class="hero-diff">Beyond the fingerprint: <a href="#vault">save the login too</a> · <a href="#proxy">vet the proxy exit</a> · <a href="#proof-strip">verify on both read paths</a> · 44-country SIM</div>
       <div class="hero-meta">
         <div><b>30+</b>signals aligned</div>
-        <div><b>499</b>real‑device DB</div>
+        <div><b>500</b>real‑device DB</div>
         <div><b>0</b>reused ids</div>
       </div>
     </div>
@@ -444,7 +444,7 @@
     <h2>Generate. Apply. Verify.</h2>
     <p class="sec-lede">One coherent profile per signup, not a field-by-field toggle. Fingerprint matches the build. IMSI matches the carrier. SoC matches the GPU. Applied through LSPosed + Zygisk, then read back by a probe.</p></div>
     <div class="steps stagger">
-      <div class="step"><span class="n">01</span><h3>Generate a coherent identity</h3><p>Pick from 499 real phones. Every dependent signal is derived to match: model, radio, bootloader, kernel, RAM, display. An incoherent combo is itself a flag. Specter never ships one.</p><span class="glyph">01</span></div>
+      <div class="step"><span class="n">01</span><h3>Generate a coherent identity</h3><p>Choose your device, or let Specter pick at random. Recent flagships are in the catalog now, the Pixel 9, Pixel 8 Pro and Galaxy S24, so an Android 16 account no longer has to wear an old Pixel 4. Every dependent signal is derived to match: model, radio, bootloader, kernel, RAM, display. An incoherent combo is itself a flag. Specter never ships one.</p><span class="glyph">01</span></div>
       <div class="step"><span class="n">02</span><h3>Apply on‑device</h3><p>Two layers, both read paths. LSPosed hooks the Java <span class="mono" style="font-size:13px">Build.*</span> APIs. A Zygisk layer covers the native <span class="mono" style="font-size:13px">ro.*</span> props an SDK reads through libc. Per‑app, reversible.</p><span class="glyph">02</span></div>
       <div class="step"><span class="n">03</span><h3>Prove it read back</h3><p>A probe reads every spoofable API back, Java and native side by side. If a value leaks the real device, you see it. No trusting the UI.</p><span class="glyph">03</span></div>
     </div>
@@ -696,7 +696,7 @@
 
   // animated hero counters - count up from 0 to the final value; honour reduced-motion (show final immediately)
   const nums=document.querySelectorAll('.hero-meta b');
-  const targets=[30,499,0], suff=['+','',''];
+  const targets=[30,500,0], suff=['+','',''];
   const reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
   nums.forEach((n,i)=>{
     const t=targets[i];
