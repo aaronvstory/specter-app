@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Specter - the phantom device layer for Android</title>
+<title>Specter: the phantom device layer for Android</title>
 <meta name="description" content="Give every account signup a fresh, coherent, never‑reused Android device identity. A generated profile sets model, build, IDs, radio, kernel and RAM consistently - then a probe reads it back to prove it. The one guarantee the paid tools broke: no identifier is ever reused." />
-<meta property="og:title" content="Specter - the phantom device layer for Android" />
+<meta property="og:title" content="Specter: the phantom device layer for Android" />
 <meta property="og:description" content="Per‑account device identity rotation. Coherent by construction, verified on‑device, never reused." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://specter-showcase.vercel.app/" />
@@ -14,7 +14,7 @@
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content="Specter - every account gets a device that never existed. Coherent, verified on‑device, never reused." />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Specter - the phantom device layer for Android" />
+<meta name="twitter:title" content="Specter: the phantom device layer for Android" />
 <meta name="twitter:description" content="Per‑account device identity rotation. Coherent by construction, verified on‑device, never reused." />
 <meta name="twitter:image" content="https://specter-showcase.vercel.app/assets/og.png" />
 <meta name="twitter:image:alt" content="Specter - per-account device identity. Coherent, verified on‑device, never reused." />
@@ -385,12 +385,12 @@
     <div>
       <span class="eyebrow"><span class="dot"></span>Per‑account device identity</span>
       <h1>Every account gets a device that <span class="glow">never existed</span>.</h1>
-      <p class="lede">Specter generates a complete, internally‑consistent Android device profile for each signup - then proves it on‑device. The guarantee the paid tools broke: <b style="color:var(--ink)">no identifier is ever reused</b>.</p>
+      <p class="lede">Specter generates a complete, internally‑consistent Android device profile for each signup, then proves it on‑device. The guarantee the paid tools broke: <b style="color:var(--ink)">no identifier is ever reused</b>.</p>
       <div class="hero-ctas">
         <a class="btn btn-gold" href="#access">Get Specter <span aria-hidden="true">→</span></a>
         <a class="btn btn-ghost" href="#how">See how it works</a>
       </div>
-      <div class="signal"><span>●</span> android_id · GSF · MediaDRM · IMEI · fingerprint · radio · kernel · RAM - <b>all coherent, all fresh</b></div>
+      <div class="signal"><span>●</span> android_id · GSF · MediaDRM · IMEI · fingerprint · radio · kernel · RAM, <b>all coherent, all fresh</b></div>
       <div class="hero-diff">Beyond the fingerprint: <a href="#vault">save the login too</a> · <a href="#proxy">vet the proxy exit</a> · <a href="#proof-strip">verify on both read paths</a> · 44-country SIM</div>
       <div class="hero-meta">
         <div><b>30+</b>signals aligned</div>
@@ -411,11 +411,11 @@
   <div class="wrap">
     <div class="reveal"><span class="kicker">Proof, not promises</span>
     <h2>Claims you can check yourself.</h2>
-    <p class="sec-lede">The hero makes strong claims. Here’s the measured evidence behind them - checked on‑device and under test.</p></div>
+    <p class="sec-lede">The hero makes strong claims. Here's the measured evidence behind them, checked on‑device and under test.</p></div>
     <div class="pcards stagger">
-      <div class="pcard"><div class="plabel">Dual‑path verified</div><p>The spoofed <span class="mono">Build.*</span> fields and their mapped <span class="mono">ro.*</span> aliases read the same value on both the LSPosed (Java) and Zygisk (native) path - an on‑device dual‑read probe confirms it.</p></div>
-      <div class="pcard"><div class="plabel">0 collisions</div><p>Across 5,000+ generated identities: zero repeated identifiers. A file‑locked ledger checks every id before it’s handed out - race‑safe across concurrent processes.</p></div>
-      <div class="pcard"><div class="plabel">Byte‑parity</div><p>The module (Java) and the core (Python) consume the seeded RNG in identical order, so the same seed yields identical output - enforced by an automated parity test.</p></div>
+      <div class="pcard"><div class="plabel">Dual‑path verified</div><p>The spoofed <span class="mono">Build.*</span> fields and their mapped <span class="mono">ro.*</span> aliases read the same value on both the LSPosed (Java) and Zygisk (native) path. An on‑device dual‑read probe confirms it.</p></div>
+      <div class="pcard"><div class="plabel">0 collisions</div><p>Across 5,000+ generated identities: zero repeated identifiers. A file‑locked ledger checks every id before it's handed out, race‑safe across concurrent processes.</p></div>
+      <div class="pcard"><div class="plabel">Byte‑parity</div><p>The module (Java) and the core (Python) consume the seeded RNG in identical order, so the same seed yields identical output, enforced by an automated parity test.</p></div>
       <div class="pcard"><div class="plabel">300+ tests</div><p>Key guarantees are under automated tests; external‑reviewer findings were fixed with regression tests. <a href="#proof">See it verified →</a></p></div>
     </div>
   </div>
@@ -427,12 +427,12 @@
     <div>
       <span class="kicker">Why it matters</span>
       <h2>Coherent and fresh, so nothing cross‑links.</h2>
-      <p class="sec-lede">Fraud stacks cluster accounts by device, not by name. One reused id, or an impossible hardware combo, links your accounts and gets them removed for “coordinated abuse.”</p>
+      <p class="sec-lede">Fraud stacks cluster accounts by device, not by name. One reused id, or an impossible hardware combo, links your accounts and gets them removed for "coordinated abuse."</p>
       <p class="sec-lede" style="margin-top:14px">Specter gives every account a <b style="color:var(--ink)">unique, internally consistent device</b>. No repeated identifier. No contradictory field. No shared thread to pull.</p>
     </div>
     <div class="ban-quote">
-      “Your account has been deactivated for <span>coordinated platform abuse</span> - shared or multiple accounts.”
-      <div style="margin-top:14px;font-family:'JetBrains Mono';font-size:12.5px;color:var(--dim)">- what shared device signals get you</div>
+      "Your account has been deactivated for <span>coordinated platform abuse</span>, shared or multiple accounts."
+      <div style="margin-top:14px;font-family:'JetBrains Mono';font-size:12.5px;color:var(--dim)">What shared device signals get you</div>
     </div>
   </div>
 </section>
@@ -464,7 +464,7 @@
       <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3.5 9h17M3.5 15h17M12 3c-3 3-3 15 0 18M12 3c3 3 3 15 0 18"/></svg></div><h3>Exit‑IP reputation</h3><p>A clean device on a burned proxy still draws friction. The built‑in checker grades a proxy exit before you assign it: fraud score, VPN/abuse flags, ASN, blacklist sweep. Timezone auto‑aligns to the exit.</p><a class="tag tag-link" href="https://webapp-kappa-sandy-12.vercel.app" target="_blank" rel="noopener">Try the live checker →</a></div>
       <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M5 8l7-5 7 5M5 8v8l7 5 7-5V8"/></svg></div><h3>Deep protections</h3><p>Root, mock-location, developer-mode, VPN interfaces and the app list read clean to scoped apps. WebRTC exposes only the routed address. The browser User‑Agent matches the applied phone. The Widevine MediaDrm device id reads a fresh value per identity, not your hardware id.</p><span class="tag">10+ toggles</span></div>
       <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg></div><h3>On‑device verification</h3><p>A harness reads back what the target app actually stored: coverage, rotation across launches, backup round‑trip, leak audit vs OS ground truth. Fails loud, never false‑passes.</p><span class="tag">measure, don't assume</span></div>
-      <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="m8 12 3 3 5-6"/></svg></div><h3>One-tap setup, one-tap check</h3><p><b>Set up everything</b> installs every layer and reboots - native, LSPosed scope, OTA block, Widevine L3. <b>Check protection status</b> then verifies it in one tap: setup, hooks, location, network. A misconfig shows red, never a silent false-OK.</p><span class="tag">no hand-installing modules</span></div>
+      <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="m8 12 3 3 5-6"/></svg></div><h3>One-tap setup, one-tap check</h3><p><b>Set up everything</b> installs every layer and reboots: native, LSPosed scope, OTA block, Widevine L3. <b>Check protection status</b> then verifies it in one tap: setup, hooks, location, network. A misconfig shows red, never a silent false-OK.</p><span class="tag">no hand-installing modules</span></div>
       <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v10m0 0 4-4m-4 4-4-4"/><path d="M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2"/></svg></div><h3>One-tap in-app updates</h3><p>The app pulls the latest release and installs it over itself through root. Your activation and saved vault carry across untouched. No hunting for an APK on every release, and a link to the full releases page is one tap away.</p><span class="tag">no manual re-downloads</span></div>
     </div>
   </div>
@@ -475,12 +475,12 @@
   <div class="wrap">
     <div class="reveal"><span class="kicker">On the glass</span>
     <h2>Read back, not promised.</h2>
-    <p class="sec-lede">Real screens from the on‑device app. Every value shown is generated - a throwaway identity, not a real account.</p></div>
+    <p class="sec-lede">Real screens from the on‑device app. Every value shown is generated, a throwaway identity, not a real account.</p></div>
     <div class="shots stagger">
       <div class="shot"><div class="frame"><img src="assets/screen-identity.png" alt="Specter Identity screen showing a generated Google Pixel 4a (5G) on T-Mobile, ready to apply to one scoped app, with save-to-vault and monitor-reads enabled"/></div><h3>One tap to apply</h3><p>Generate → apply to a scoped app → save to the vault.</p></div>
-      <div class="shot"><div class="frame"><img src="assets/screen-fields.png" alt="Identity detail screen listing the coherent device fields - manufacturer Google, model Pixel 4a (5G), brand google, device bramble, a matching build fingerprint, T-Mobile carrier - and generated Android ID, GSF ID and Advertising ID"/></div><h3>Coherent, down to the fingerprint</h3><p>Model, brand, device, fingerprint, carrier and 16 identifiers - all aligned.</p></div>
-      <div class="shot"><div class="frame"><img src="assets/screen-protections.png" alt="Protections settings with toggles enabled for hide root, hide mock location, hide developer mode, hide app list, hide VPN interfaces, fix WebRTC leak, match browser signature, randomize install time and match hardware profile"/></div><h3>The signals SDKs actually read</h3><p>Root, mock, dev‑mode, WebRTC, UA, hardware - matched or hidden.</p></div>
-      <div class="shot"><div class="frame"><img src="assets/screen-power.png" alt="Specter settings showing IP-reputation provider configuration and advanced root controls"/></div><h3>Built‑in reputation + root control</h3><p>Four IP-reputation sources with keys shipped in - no signup needed, add your own to override - plus root‑level Widevine L3 and Google‑ID reset.</p></div>
+      <div class="shot"><div class="frame"><img src="assets/screen-fields.png" alt="Identity detail screen listing the coherent device fields - manufacturer Google, model Pixel 4a (5G), brand google, device bramble, a matching build fingerprint, T-Mobile carrier - and generated Android ID, GSF ID and Advertising ID"/></div><h3>Coherent, down to the fingerprint</h3><p>Model, brand, device, fingerprint, carrier and 16 identifiers, all aligned.</p></div>
+      <div class="shot"><div class="frame"><img src="assets/screen-protections.png" alt="Protections settings with toggles enabled for hide root, hide mock location, hide developer mode, hide app list, hide VPN interfaces, fix WebRTC leak, match browser signature, randomize install time and match hardware profile"/></div><h3>The signals SDKs actually read</h3><p>Root, mock, dev‑mode, WebRTC, UA, hardware, matched or hidden.</p></div>
+      <div class="shot"><div class="frame"><img src="assets/screen-power.png" alt="Specter settings showing IP-reputation provider configuration and advanced root controls"/></div><h3>Built‑in reputation + root control</h3><p>Four IP-reputation sources with keys shipped in, so no signup is needed. Add your own to override. Plus root‑level Widevine L3 and Google‑ID reset.</p></div>
     </div>
   </div>
 </section>
@@ -490,10 +490,10 @@
   <div class="wrap">
     <div class="reveal"><span class="kicker">The vault</span>
     <h2>Every identity, organized and restorable.</h2>
-    <p class="sec-lede">A fingerprint clones the device; an AppData save clones the login. Save both together and bring an account back exactly as it was - on the same phone, or exported to another.</p></div>
+    <p class="sec-lede">A fingerprint clones the device; an AppData save clones the login. Save both together and bring an account back exactly as it was, on the same phone, or exported to another.</p></div>
     <div class="vault-grid">
       <ul class="vault-points reveal">
-        <li><b>Named by whose it is.</b> Each saved login is titled by the identity it belongs to - not a bare timestamp - so you always know which account you're restoring.</li>
+        <li><b>Named by whose it is.</b> Each saved login is titled by the identity it belongs to, not a bare timestamp, so you always know which account you're restoring.</li>
         <li><b>App‑first, one‑to‑many.</b> Logins group by app, and one identity can hold several logins. Restore picks exactly which one, never guesses.</li>
         <li><b>Export &amp; import.</b> Move a fingerprint and its login to another phone as a single portable bundle.</li>
         <li><b>Honest about limits.</b> A same‑device restore always works; the app tells you plainly when a keystore-locked login can't cross devices.</li>
@@ -523,7 +523,7 @@
           <div class="vcol"><div class="vname">Elena Ruiz · Motorola Edge</div><div class="vsub">Mon 08/10 · 773 KB · restores its fingerprint too</div></div>
           <span class="vrestore">Restore</span>
         </div>
-        <div class="vault-note">Illustrative vault mockup - simulated data, not an app screenshot</div>
+        <div class="vault-note">Illustrative vault mockup. Simulated data, not an app screenshot</div>
       </div>
     </div>
   </div>
@@ -534,7 +534,7 @@
   <div class="wrap">
     <div class="reveal"><span class="kicker">Proxy &amp; exit IP</span>
     <h2>Hide the tunnel. Vet the exit.</h2>
-    <p class="sec-lede">A coherent device behind a burned or leaky proxy still gets flagged. Specter covers both sides: it hides that you are tunnelling at all, and it grades the exit IP before you ever put an account on it.</p></div>
+    <p class="sec-lede">A coherent device behind a burned or leaky proxy still gets flagged. Specter covers both sides. It hides that you are tunnelling at all, and it grades the exit IP before you ever put an account on it.</p></div>
     <div class="vault-grid">
       <ul class="vault-points reveal">
         <li><b>Hide the tunnel.</b> Scoped apps cannot tell you are on a proxy or VPN. No VPN network interface shows up, and WebRTC hands back only the routed address, never your real local IP.</li>
@@ -549,7 +549,7 @@
         <div class="iprow"><span class="ipsrc">AbuseIPDB</span><span class="ipbar"><i style="width:2%"></i></span><span class="ipval">2% abuse</span></div>
         <div class="iprow"><span class="ipsrc">ip-api</span><span class="ipflags"><span class="ipok">no proxy</span><span class="ipok">no VPN</span><span class="ipok">no hosting</span></span></div>
         <div class="ipmeta">Residential &middot; ASN AS7922 Comcast &middot; timezone aligned to exit</div>
-        <div class="vault-note">Illustrative readout - simulated data, not an app screenshot</div>
+        <div class="vault-note">Illustrative readout. Simulated data, not an app screenshot</div>
       </div>
     </div>
     <p style="text-align:center;margin-top:28px"><a class="btn btn-ghost" href="https://webapp-kappa-sandy-12.vercel.app" target="_blank" rel="noopener">Try the live checker <span aria-hidden="true">&#8599;</span></a></p>
@@ -561,19 +561,19 @@
   <div class="wrap">
     <div class="reveal"><span class="kicker">Head to head</span>
     <h2>Built against the tool it replaces.</h2>
-    <p class="sec-lede">Specter grew out of GeerGit - we built on its hook surface, then fixed the identifier-reuse bug that started this project. Here is how it stacks up against the real crop of Android device-spoofers we pulled apart and measured: GeerGit, Glitch, Mirage and byedentity.</p></div>
+    <p class="sec-lede">Specter grew out of GeerGit. We built on its hook surface, then fixed the identifier-reuse bug that started this project. Here is how it stacks up against the real crop of Android device-spoofers we pulled apart and measured: GeerGit, Glitch, Mirage and byedentity.</p></div>
     <p class="mono" style="font-size:12.5px;color:var(--dim);margin-top:18px">Scroll the table sideways on a narrow screen, or focus it and use the arrow keys.</p>
     <div class="cmp-wrap reveal" tabindex="0" role="region" aria-label="Specter capability comparison - scrollable">
       <table>
         <caption class="sr-only">Capability comparison: Specter versus GeerGit, Glitch, Mirage and byedentity.</caption>
         <thead><tr><th scope="col">Capability</th><th scope="col" class="spec">Specter</th><th scope="col">GeerGit</th><th scope="col">Glitch</th><th scope="col">Mirage</th><th scope="col">byedentity</th></tr></thead>
         <tbody>
-          <tr><td>Native <span class="mono" style="font-size:12px">ro.*</span> prop path (libc, not just Java)</td><td class="col-spec"><span class="yes">Zygisk native</span></td><td class="no">Java only - native leaks</td><td class="no">Java only - native leaks</td><td class="no">Java only - native leaks</td><td class="mid">Root resetprop, device-wide</td></tr>
+          <tr><td>Native <span class="mono" style="font-size:12px">ro.*</span> prop path (libc, not just Java)</td><td class="col-spec"><span class="yes">Zygisk native</span></td><td class="no">Java only, native leaks</td><td class="no">Java only, native leaks</td><td class="no">Java only, native leaks</td><td class="mid">Root resetprop, device-wide</td></tr>
           <tr><td>On-device read-back proof</td><td class="col-spec"><span class="yes">Probe harness</span></td><td class="mid">Trust the UI</td><td class="mid">Trust the UI</td><td class="mid">Trust the UI</td><td class="mid">Trust the UI</td></tr>
           <tr><td>Hides itself + the root stack from the app list</td><td class="col-spec"><span class="yes">App + binder gate</span></td><td class="mid">Not advertised</td><td class="mid">Not advertised</td><td class="mid">Not advertised</td><td class="mid">Not advertised</td></tr>
           <tr><td>No identifier ever reused</td><td class="col-spec"><span class="yes">Ledger-enforced</span></td><td class="no">Reused a stale id (v2.9.6)</td><td class="mid">Not advertised</td><td class="mid">Not advertised</td><td class="no">Regenerates, no ledger</td></tr>
           <tr><td>Cross-field coherence, enforced</td><td class="col-spec"><span class="yes">Tested invariants</span></td><td class="no">Leaves hardware real</td><td class="mid">Partial</td><td class="mid">Partial</td><td class="no">Build/SoC left real</td></tr>
-          <tr><td>DRM / Widevine device id</td><td class="col-spec"><span class="yes">Spoofed + L3, per-app</span></td><td class="no">Real - L1 leaks</td><td class="mid">Not advertised</td><td class="mid">Not advertised</td><td class="mid">Root mount, device-wide</td></tr>
+          <tr><td>DRM / Widevine device id</td><td class="col-spec"><span class="yes">Spoofed + L3, per-app</span></td><td class="no">Real, L1 leaks</td><td class="mid">Not advertised</td><td class="mid">Not advertised</td><td class="mid">Root mount, device-wide</td></tr>
           <tr><td>Browser UA + WebRTC</td><td class="col-spec"><span class="yes">Matched, WebView WebRTC filter</span></td><td class="mid">Not advertised</td><td class="mid">Not advertised</td><td class="mid">Not advertised</td><td class="mid">Not advertised</td></tr>
           <tr><td>App login / session vault</td><td class="col-spec"><span class="yes">AppData vault</span></td><td class="mid">Not advertised</td><td class="no">None</td><td class="no">None</td><td class="mid">Not advertised</td></tr>
           <tr><td>Exit-IP reputation built in</td><td class="col-spec"><span class="yes">4 sources + TZ align</span></td><td class="mid">Not advertised</td><td class="no">None</td><td class="no">None</td><td class="no">Phones home to its own server</td></tr>
@@ -582,7 +582,7 @@
         </tbody>
       </table>
     </div>
-    <p class="mono" style="font-size:12px;color:var(--dim);margin-top:14px">Competitor data is from our own decompilation of each app (jadx + strings, 2026) plus its public notes. "Not advertised" means the tool does not claim the capability, not that it is provably absent. GPS is a deliberate split - Specter pairs with Lockito rather than bundling a coordinate mocker.</p>
+    <p class="mono" style="font-size:12px;color:var(--dim);margin-top:14px">Competitor data is from our own decompilation of each app (jadx + strings, 2026) plus its public notes. "Not advertised" means the tool does not claim the capability, not that it is provably absent. GPS is a deliberate split. Specter pairs with Lockito rather than bundling a coordinate mocker.</p>
   </div>
 </section>
 
@@ -590,13 +590,13 @@
 <section id="deep">
   <div class="wrap">
     <div class="reveal"><span class="kicker">For the technical</span>
-    <h2>Necessary, not sufficient - and honest about it.</h2>
+    <h2>Necessary, not sufficient, and honest about it.</h2>
     <p class="sec-lede">Specter owns the <b style="color:var(--ink)">device</b> layer completely. It does not pretend to own the ones it can't.</p></div>
     <div class="reveal">
-      <details class="dd"><summary>The two injection layers</summary><div class="body"><p><b>LSPosed (Java):</b> hooks <span class="mono" style="font-size:13px">Build.*</span> fields and their <span class="mono" style="font-size:13px">SystemProperties</span> aliases, per‑app, gated on the module's scope.</p><p><b>Zygisk (native):</b> an inline hook on <span class="mono" style="font-size:13px">__system_property_get</span> so a fingerprinter reading a prop through libc gets the spoofed value on the native path too - the blind spot Java‑only tools leave open. The probe confirms Java and native agree, field by field.</p></div></details>
-      <details class="dd"><summary>Coherence is the whole point</summary><div class="body"><p>Fraud SDKs derive a composite from ~30 hardware/OS signals. Set only the IDs and that composite stays constant across your “different” accounts - a perfect linker. Specter sets the composite signals (bootloader, radio, kernel, board, hardware, RAM, display) so they align with the one chosen device. Coherence is enforced by cross‑field validators and Java↔Python byte‑parity tests.</p></div></details>
-      <details class="dd"><summary>The ceilings no device tool can cross</summary><div class="body"><p>Account linking has three layers; Specter is one. <b>Identity</b> - a platform that re-verifies with a live selfie + gov ID needs a distinct real identity per account; no spoof beats a selfie. <b>Location &amp; behaviour</b> - observed GPS and driving telematics need their own plausible, self-consistent motion. Specter gives you a clean, coherent device and ties the timezone to the proxy exit; the proxy, GPS and identity are yours. We say this plainly rather than imply a device tool is enough.</p></div></details>
-      <details class="dd"><summary>What the login vault can and can't carry</summary><div class="body"><p>The AppData capture is app‑agnostic - it takes the whole app data dir (databases incl. the SQLite WAL where live tokens sit, shared_prefs, files, WebView cookies). A same‑device restore always works. Moving a login to a <b>different</b> phone works for plaintext-token apps; a login an app locked to the device keystore can't decrypt elsewhere, because that key is hardware-bound and can't leave the chip. Honest by design.</p></div></details>
+      <details class="dd"><summary>The two injection layers</summary><div class="body"><p><b>LSPosed (Java):</b> hooks <span class="mono" style="font-size:13px">Build.*</span> fields and their <span class="mono" style="font-size:13px">SystemProperties</span> aliases, per‑app, gated on the module's scope.</p><p><b>Zygisk (native):</b> an inline hook on <span class="mono" style="font-size:13px">__system_property_get</span> so a fingerprinter reading a prop through libc gets the spoofed value on the native path too, the blind spot Java‑only tools leave open. The probe confirms Java and native agree, field by field.</p></div></details>
+      <details class="dd"><summary>Coherence is the whole point</summary><div class="body"><p>Fraud SDKs derive a composite from ~30 hardware/OS signals. Set only the IDs and that composite stays constant across your "different" accounts, a perfect linker. Specter sets the composite signals (bootloader, radio, kernel, board, hardware, RAM, display) so they align with the one chosen device. Coherence is enforced by cross‑field validators and Java↔Python byte‑parity tests.</p></div></details>
+      <details class="dd"><summary>The ceilings no device tool can cross</summary><div class="body"><p>Account linking has three layers; Specter is one. <b>Identity</b>. A platform that re-verifies with a live selfie + gov ID needs a distinct real identity per account; no spoof beats a selfie. <b>Location &amp; behaviour</b>. Observed GPS and driving telematics need their own plausible, self-consistent motion. Specter gives you a clean, coherent device and ties the timezone to the proxy exit; the proxy, GPS and identity are yours. We say this plainly rather than imply a device tool is enough.</p></div></details>
+      <details class="dd"><summary>What the login vault can and can't carry</summary><div class="body"><p>The AppData capture is app‑agnostic. It takes the whole app data dir (databases incl. the SQLite WAL where live tokens sit, shared_prefs, files, WebView cookies). A same‑device restore always works. Moving a login to a <b>different</b> phone works for plaintext-token apps; a login an app locked to the device keystore can't decrypt elsewhere, because that key is hardware-bound and can't leave the chip. Honest by design.</p></div></details>
     </div>
   </div>
 </section>
@@ -606,15 +606,15 @@
   <div class="wrap">
     <div class="reveal"><span class="kicker">Questions</span>
     <h2>Straight answers.</h2>
-    <p class="sec-lede">The things worth knowing before you commit - including what Specter deliberately does not claim.</p></div>
+    <p class="sec-lede">The things worth knowing before you commit, including what Specter deliberately does not claim.</p></div>
     <div class="reveal">
-      <details class="dd"><summary>Which phones does it work on?</summary><div class="body"><p>A <b>rooted Android phone</b> with Magisk (Zygisk) and LSPosed.</p><p>The device pool is US-market (Samsung, Google, Motorola, LGE). Pick from <b>44 countries</b> for the SIM: carrier, phone number, locale and timezone.</p><p>Everything runs <b>on the phone</b> - no computer or PC connection needed.</p></div></details>
-      <details class="dd"><summary>Do I need a computer running?</summary><div class="body"><p><b>No.</b> The app is standalone - it generates identities, applies them, saves logins and verifies, all on the phone.</p><p>No desktop app, no USB cable, no PC connection while you use it.</p></div></details>
-      <details class="dd"><summary>Is it hard to set up?</summary><div class="body"><p><b>No.</b> One tap - <b>Set up everything</b> - installs every layer and reboots: native, LSPosed scope, OTA block, Widevine L3.</p><p>A second tap - <b>Check protection status</b> - verifies it all: setup, hooks, location, network. A misconfig shows red, so you are never falsely reassured.</p></div></details>
-      <details class="dd"><summary>Is it detectable?</summary><div class="body"><p>An app can check two things: the device signals, and whether a spoofing/root tool is on the phone. Specter covers both.</p><p><b>Signals read spoofed.</b> Every field returns the fake value on <b>both</b> read paths - Java (LSPosed) and native libc (Zygisk). An on‑device probe reads them back, so a leak is measured, not assumed.</p><p><b>Specter hides itself.</b> Scoped apps can't see Specter, LSPosed, root managers or other spoof tools in the installed‑app list. It hooks <span class="mono" style="font-size:13px">AppsFilter</span> in system_server (the binder path an SDK uses) plus the per‑app PackageManager queries - modeled on HideMyApplist.</p><p><b>The ceiling, plainly.</b> No device tool beats a server‑side <b>identity</b> check (live selfie + gov ID) or account‑linking from <b>location &amp; behaviour</b>. Those are separate layers - bring your own proxy, GPS and identity.</p></div></details>
-      <details class="dd"><summary>How is it different from GeerGit and other spoofers?</summary><div class="body"><p>It was reverse-engineered from GeerGit's own hook surface, then closed the gaps behind the failures it documented - chiefly a <b>never‑reuse ledger</b> (a reused identifier is what links accounts), <b>enforced cross‑field coherence</b>, native <span class="mono" style="font-size:13px">ro.*</span> prop coverage (not Java‑only), an <b>app login vault</b>, built‑in <b>exit‑IP reputation</b>, and an <b>on‑device verification</b> harness. See the comparison above.</p></div></details>
-      <details class="dd"><summary>Do I need to know how to code?</summary><div class="body"><p>No. Once the module is installed, everything - generate, apply, save/restore a login, verify, check an IP, activate - is driven from the on‑device app.</p></div></details>
-      <details class="dd"><summary>Will a saved login move to another phone?</summary><div class="body"><p>On the same phone, the captured login comes back intact. Moving a login to a <b>different</b> phone works for apps that keep a plaintext token; an app that locks its login to the device keystore can't decrypt it elsewhere, because that key is hardware-bound and can't leave the chip. The app tells you plainly which case you're in - no false promises.</p></div></details>
+      <details class="dd"><summary>Which phones does it work on?</summary><div class="body"><p>A <b>rooted Android phone</b> with Magisk (Zygisk) and LSPosed.</p><p>The device pool is US-market (Samsung, Google, Motorola, LGE). Pick from <b>44 countries</b> for the SIM: carrier, phone number, locale and timezone.</p><p>Everything runs <b>on the phone</b>. No computer or PC connection needed.</p></div></details>
+      <details class="dd"><summary>Do I need a computer running?</summary><div class="body"><p><b>No.</b> The app is standalone. It generates identities, applies them, saves logins and verifies, all on the phone.</p><p>No desktop app, no USB cable, no PC connection while you use it.</p></div></details>
+      <details class="dd"><summary>Is it hard to set up?</summary><div class="body"><p><b>No.</b> One tap on <b>Set up everything</b> installs every layer and reboots: native, LSPosed scope, OTA block, Widevine L3.</p><p>A second tap on <b>Check protection status</b> verifies it all: setup, hooks, location, network. A misconfig shows red, so you are never falsely reassured.</p></div></details>
+      <details class="dd"><summary>Is it detectable?</summary><div class="body"><p>An app can check two things: the device signals, and whether a spoofing/root tool is on the phone. Specter covers both.</p><p><b>Signals read spoofed.</b> Every field returns the fake value on <b>both</b> read paths, Java (LSPosed) and native libc (Zygisk). An on‑device probe reads them back, so a leak is measured, not assumed.</p><p><b>Specter hides itself.</b> Scoped apps can't see Specter, LSPosed, root managers or other spoof tools in the installed‑app list. It hooks <span class="mono" style="font-size:13px">AppsFilter</span> in system_server (the binder path an SDK uses) plus the per‑app PackageManager queries, modeled on HideMyApplist.</p><p><b>The ceiling, plainly.</b> No device tool beats a server‑side <b>identity</b> check (live selfie + gov ID) or account‑linking from <b>location &amp; behaviour</b>. Those are separate layers. Bring your own proxy, GPS and identity.</p></div></details>
+      <details class="dd"><summary>How is it different from GeerGit and other spoofers?</summary><div class="body"><p>It was reverse-engineered from GeerGit's own hook surface, then closed the gaps behind the failures it documented, chiefly a <b>never‑reuse ledger</b> (a reused identifier is what links accounts), <b>enforced cross‑field coherence</b>, native <span class="mono" style="font-size:13px">ro.*</span> prop coverage (not Java‑only), an <b>app login vault</b>, built‑in <b>exit‑IP reputation</b>, and an <b>on‑device verification</b> harness. See the comparison above.</p></div></details>
+      <details class="dd"><summary>Do I need to know how to code?</summary><div class="body"><p>No. Once the module is installed, everything is driven from the on‑device app: generate, apply, save/restore a login, verify, check an IP, activate.</p></div></details>
+      <details class="dd"><summary>Will a saved login move to another phone?</summary><div class="body"><p>On the same phone, the captured login comes back intact. Moving a login to a <b>different</b> phone works for apps that keep a plaintext token; an app that locks its login to the device keystore can't decrypt it elsewhere, because that key is hardware-bound and can't leave the chip. The app tells you plainly which case you're in. No false promises.</p></div></details>
       <details class="dd"><summary>How do I get access?</summary><div class="body"><p>Message <a href="https://t.me/pooks11" target="_blank" rel="noopener" style="color:var(--gold)">@pooks11 on Telegram</a>.</p><p>The first week is free. After that it's $20/month per device.</p><p>I verify your device and issue a signed activation code.</p></div></details>
     </div>
   </div>
@@ -625,12 +625,12 @@
   <div class="wrap">
     <div class="reveal"><span class="kicker">Get access</span>
     <h2>Licensed per device. Activated in a tap.</h2>
-    <p class="sec-lede">A device‑bound licence - one phone per code.<br>Free for the first week, then $20/month per device.<br>Message me on Telegram and I issue your code, usually same day.</p></div>
+    <p class="sec-lede">A device‑bound licence. One phone per code.<br>Free for the first week, then $20/month per device.<br>Message me on Telegram and I issue your code, usually same day.</p></div>
     <div class="access-grid">
       <ul class="access-list reveal">
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg><span><b>Device‑bound activation.</b> A signed code binds to one phone's hardware id - verified by both the Java and native layers before anything is applied.</span></li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg><span><b>Free 1‑week trial.</b> Then $20/month per device - longer terms on request.</span></li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7c0-1.5 3.6-3 8-3s8 1.5 8 3-3.6 3-8 3-8-1.5-8-3Z"/><path d="M4 7v10c0 1.5 3.6 3 8 3s8-1.5 8-3V7"/></svg><span><b>Runs on the phone.</b> Generate, apply, save logins and verify - all on‑device. No computer, no cloud, no telemetry.</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg><span><b>Device‑bound activation.</b> A signed code binds to one phone's hardware id, verified by both the Java and native layers before anything is applied.</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg><span><b>Free 1‑week trial.</b> Then $20/month per device. Longer terms on request.</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7c0-1.5 3.6-3 8-3s8 1.5 8 3-3.6 3-8 3-8-1.5-8-3Z"/><path d="M4 7v10c0 1.5 3.6 3 8 3s8-1.5 8-3V7"/></svg><span><b>Runs on the phone.</b> Generate, apply, save logins and verify, all on‑device. No computer, no cloud, no telemetry.</span></li>
         <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4Z"/></svg><span><b>Tested, not trusted.</b> 300+ Python tests, a JVM suite, and Java↔Python byte‑parity keep every build honest.</span></li>
         <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg><span><b>Public on GitHub.</b> Releases, docs and changelog are public, so you see exactly what ships.</span></li>
         <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M5 8l7-5 7 5M5 8v8l7 5 7-5V8"/></svg><span><b>Magisk or KernelSU.</b> Magisk is the tested path. KernelSU, SukiSU and APatch are supported too. The app points you to NeoZygisk, the Zygisk provider LSPosed needs there.</span></li>
@@ -676,7 +676,7 @@
   </div>
 </footer>
 <div class="disclaimer">
-  Specter is a device-configuration and on‑device QA tool for rooted Android devices you own or are authorized to manage. You are responsible for complying with the terms of any service you use it with. Screenshots show generated, throwaway identities - not real accounts.
+  Specter is a device-configuration and on‑device QA tool for rooted Android devices you own or are authorized to manage. You are responsible for complying with the terms of any service you use it with. Screenshots show generated, throwaway identities, not real accounts.
 </div>
 
 <script>
