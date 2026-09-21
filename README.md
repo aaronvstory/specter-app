@@ -2,20 +2,20 @@
 
 # 👻 Specter
 
-### A fresh phone for every account
+### A unique device profile for every app session
 
-Per-app device identities that never repeat, so your accounts never get linked.
+Per-application device configuration profiles that never repeat, so device intelligence platforms cannot correlate sessions by a repeated identifier.
 
 [**🌐 Live site**](https://aaronvstory.github.io/specter-app/) · [**⬇️ Download APK**](../../releases/latest) · [How it works](#how-it-works) · [Setup](#setup) · [Get a key](#access) · [Full breakdown](#full-breakdown--how-specter-compares)
 
 ![Android 7–15](https://img.shields.io/badge/Android-7–15-3ddc84) &nbsp;![Root](https://img.shields.io/badge/root-Magisk%20%2B%20LSPosed-ffd54a) &nbsp;![Countries](https://img.shields.io/badge/countries-44-3ddc84)
 
-<img src="docs/img/identity.png" width="230" alt="Specter, one tap applies an identity"/>
+<img src="docs/img/identity.png" width="230" alt="Specter, one tap applies a profile"/>
 <img src="docs/img/status.png" width="230" alt="Protection status, all green"/>
-<img src="docs/img/appdata.png" width="230" alt="Save & restore a logged-in session per app"/>
+<img src="docs/img/appdata.png" width="230" alt="Save & restore a session per app"/>
 <img src="docs/img/network.png" width="230" alt="Built-in exit-IP + reputation check"/>
 
-<sub>Apply an identity · verify every layer is live · save/restore logins per app · check your exit IP</sub>
+<sub>Apply a profile · verify every layer is live · save/restore sessions per app · check your exit IP</sub>
 
 </div>
 
@@ -23,11 +23,11 @@ Per-app device identities that never repeat, so your accounts never get linked.
 
 ## What you get
 
-- 🎭 **A different device per app.** Give every account its own phone identity, applied in one tap.
-- 🔒 **Never reused.** Every identity is unique and internally consistent, so nothing links your accounts.
-- 🧪 **Built-in IP reputation check.** Test your proxy/exit IP for fraud, VPN, and blacklist flags *before* you sign up.
-- 💾 **Fingerprint vault.** Save any identity and reload it anytime.
-- 📲 **Save & restore logins.** Keep your logged-in sessions and switch between them without signing in again.
+- 🎭 **A different device per app session.** Give every application session its own device configuration profile, applied in one tap.
+- 🔒 **Never reused.** Every profile is unique and internally consistent, so nothing correlates your sessions.
+- 🧪 **Built-in IP reputation check.** Test your proxy/exit IP for risk flags *before* you connect.
+- 💾 **Profile vault.** Save any configuration and reload it anytime.
+- 📲 **Save & restore sessions.** Keep your initialized sessions and switch between them without re-initializing.
 - 🌍 **Timezone follows your proxy.** The device clock matches your exit location automatically.
 - ✅ **Proof it worked.** A built-in check reads back what each app actually sees.
 - ⚡ **One-tap setup.** Installs everything and gets you running.
@@ -36,13 +36,13 @@ Per-app device identities that never repeat, so your accounts never get linked.
 
 ## How it works
 
-**1.** Open a target app on a fresh, unique device identity. → **2.** Save the login. → **3.** Switch identity for the next account. The previous session is safely vaulted and restorable.
+**1.** Open a target app on a fresh, unique device configuration profile. → **2.** Save the session state. → **3.** Apply a new profile for the next session. The previous session state is safely vaulted and restorable.
 
-Every account signup sees a different phone. Nothing carries over to link them.
+Every application session sees a different device parameter set. Nothing carries over to correlate them.
 
 ## Specter Lite: free, no root
 
-Not rooted? **[Specter Lite](../../releases/latest)** is a free companion app that reads your device's real fingerprint (every identifier an app can see without root) and shows it in one place, so you know exactly what your phone looks like to the apps you use. No spoofing, no root, no key required. The full Specter (above) is what rotates that fingerprint per account.
+Not rooted? **[Specter Lite](../../releases/latest)** is a free companion app that reads your device's current parameter set (every identifier an app can read without root) and shows it in one place, so you know exactly what your phone looks like to the apps you use. No configuration, no root, no key required. The full Specter (above) is what rotates that parameter set per session.
 
 ## Setup
 
@@ -63,15 +63,15 @@ Keys are device-bound and come in **1 day · 1 week · 2 weeks · 1 month · per
 
 ### Why
 
-Identifier spoofers that reuse a value get you linked and banned. The tools that came before left most of the hardware **real** and rotated only a handful of IDs, so a fraud stack could still fingerprint the untouched signals and tie the accounts together.
+Device configuration tools that reuse a parameter value get sessions correlated and blocked. The tools that came before left most of the hardware **real** and rotated only a handful of IDs, so a device analytics platform could still read the untouched signals and tie the sessions together.
 
-Specter's one rule: **no identifier is ever reused, and the whole device reads coherent.** The Build fields match the model, the IMSI matches the SIM carrier, US devices pair with US carriers. An incoherent device is itself a flag, so Specter never ships one.
+Specter's one rule: **no identifier is ever reused, and the whole device reads coherent.** The Build fields match the model, the IMSI matches the SIM carrier, US devices pair with US carriers. An incoherent device is itself a detectable inconsistency, so Specter never ships one.
 
 ### What makes it different
 
-- **Two injection layers, both proven on-device.** Specter spoofs on *both* the app layer and the layer beneath it, in lockstep, so a signal read the "deep" way is covered too. Tools that only cover the app layer leak the moment something looks lower.
-- **Coherent, US-market profiles from real device models.** Every field is made to match one real device, top to bottom, not a random mix that flags as fake.
-- **Full identifier set, per app.** It is the complete set of device IDs an app can read, all fresh and consistent.
+- **Two injection layers, both proven on-device.** Specter configures on *both* the app layer and the layer beneath it, in lockstep, so a parameter read the "deep" way is covered too. Tools that only cover the app layer leak the moment something looks lower.
+- **Coherent, US-market profiles from real device models.** Every field is made to match one real device, top to bottom, not a random mix that reads as inconsistent.
+- **Full parameter set, per session.** It is the complete set of device identifiers an app can read, all fresh and consistent.
 - **Never-reused, enforced.** A race-safe ledger guarantees uniqueness (5000+ generations, zero collisions), not "should be unique," *guaranteed* unique.
 - **Timezone follows the proxy, not the phone.** It auto-aligns to your exit IP, never your home IP.
 - **Read it back, don't trust the tool.** A built-in probe reads what the target app *actually* stored and shows a per-field ✅/❌.
@@ -81,22 +81,22 @@ Specter's one rule: **no identifier is ever reused, and the whole device reads c
 
 | | **Specter** | GeerGit | byedentity | Mirage\* |
 |---|:---:|:---:|:---:|:---:|
-| Two-layer (app **+** deep) spoof | ✅ proven | app-mostly | deep only | app only |
+| Two-layer (app **+** deep) configuration | ✅ proven | app-mostly | deep only | app only |
 | Hardware coherence (model/chip/RAM/board) | ✅ enforced | ⚠️ leaves HW real | ❌ left real | not verified |
 | Both SIM slots + full telephony | ✅ | partial | ❌ | not verified |
-| Widevine → L3 | ✅ (no root for the spoof) | ❌ | ✅ (needs root) | not verified |
+| Widevine → L3 | ✅ (no root for the config) | ❌ | ✅ (needs root) | not verified |
 | Never-reused guarantee | ✅ enforced ledger | ⚠️ manual / increment | n/a | not verified |
 | USA-coherent values | ✅ full | partial | ❌ | not verified |
 | Works offline / no server leash | ✅ stateless | ✅ | ❌ phone-home + kill-switch | ❌ login + cloud |
 | On-device read-back verification | ✅ probe | ❌ | ❌ | ❌ |
 
-<sub>\*Mirage: capabilities not independently verified. It ships a login + cloud backend (a server leash), which Specter deliberately avoids. GeerGit/byedentity cells sourced from decompile analysis. Specter deliberately rejects a remote kill-switch / phone-home: a phone-home is itself a signal.</sub>
+<sub>\*Mirage: capabilities not independently verified. It ships a login + cloud backend (a server leash), which Specter deliberately avoids. GeerGit/byedentity cells sourced from analysis. Specter deliberately rejects a remote kill-switch / phone-home: a phone-home is itself a detectable signal.</sub>
 
 ### Honest limits
 
 - **Root required** (Magisk + Zygisk + LSPosed). This is a power tool, not a one-tap app-store install.
-- Specter makes every **identifier** fresh, coherent, and verified-spoofed, and closes the gaps that get accounts linked, but it isn't magic, and it's one layer of the picture.
-- The **network** layer (proxy quality, datacenter-IP reputation) is your proxy's job, which is exactly why the IP reputation check is built in.
+- Specter makes every **parameter** fresh, coherent, and verified-applied, and closes the gaps that create cross-session correlation, but it's one layer of the picture.
+- The **network** layer (proxy quality, exit IP reputation) is your proxy's job, which is exactly why the IP reputation check is built in.
 
 <sub>USA device profiles · Android 7–15 (minSdk 24) · brands: Google · Motorola · Samsung · LGE</sub>
 
