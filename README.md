@@ -27,6 +27,8 @@ Per-application device configuration profiles that never repeat, so device intel
 - 🔒 **Never reused.** Every profile is unique and internally consistent, so nothing correlates your sessions.
 - 🧪 **Built-in IP reputation check.** Test your proxy/exit IP for risk flags *before* you connect.
 - 🛡️ **Built-in proxy with a kill switch.** Paste a SOCKS5 or HTTP proxy in any format and every app goes through it, DNS included. Link one to each saved profile. If it drops, apps go offline instead of using your real IP, and Specter reconnects by itself, even after a reboot. No VPN icon.
+- 🌍 **Country follows your proxy.** On connect, the timezone, locale, SIM and carrier of an applied identity match the proxy exit, including what Chrome shows to websites.
+- 🕵️ **Hide local IP (optional).** Apps and WebRTC no longer see your LAN address.
 - 💾 **Profile vault.** Save any configuration and reload it anytime.
 - 📲 **Save & restore sessions.** Keep your initialized sessions and switch between them without re-initializing.
 - 🌍 **Timezone follows your proxy.** The device clock matches your exit location automatically.
